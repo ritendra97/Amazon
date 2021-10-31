@@ -1,0 +1,54 @@
+package Amazon;
+
+import java.util.Stack;
+
+public class Amazon {
+
+	public static boolean findRedundant(String str) {
+
+		Stack<Character> st = new Stack<Character>();
+
+		for (int i = 0; i < str.length(); i++) {
+
+			char ch = str.charAt(i);
+
+			if (ch == ')') {
+
+				char top = st.peek();
+				st.pop();
+				boolean flag = true;
+
+				while (top != '(') {
+
+					if (top == '+' || top == '-' || top == '*' || top == '/') {
+						flag = false;
+					}
+
+					top = st.peek();
+
+					st.pop();
+				}
+
+				if (flag == true) {
+					return false;
+				}
+
+			} else {
+				st.push(ch);
+			}
+		}
+
+		return false;
+	}
+
+	public static void main(String[] args) {
+		String str = "((a+b))";
+		System.out.println(findRedundant(str));
+
+		str = "(a+(b)/c)";
+		findRedundant(str);
+
+		str = "(a+b*(c-d))";
+		findRedundant(str);
+	}
+}
