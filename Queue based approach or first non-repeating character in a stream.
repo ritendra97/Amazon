@@ -1,0 +1,97 @@
+// Java Program for a Queue based approach
+// to find first non-repeating character
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class NonReapatingCQueue {
+	final static int MAX_CHAR = 26;
+
+	// function to find first non repeating
+	// character of stream
+	static void firstNonRepeating(String str)
+	{
+		// count array of size 26(assuming
+		// only lower case characters are present)
+		int[] charCount = new int[MAX_CHAR];
+
+		// Queue to store Characters
+		Queue<Character> q = new LinkedList<Character>();
+
+		// traverse whole stream
+		for (int i = 0; i < str.length(); i++) {
+			char ch = str.charAt(i);
+
+			// push each character in queue
+			q.add(ch);
+
+			// increment the frequency count
+			charCount[ch - 'a']++;
+
+			// check for the non repeating character
+			while (!q.isEmpty()) {
+				if (charCount[q.peek() - 'a'] > 1)
+					q.remove();
+				else {
+					System.out.print(q.peek() + " ");
+					break;
+				}
+			}
+			if (q.isEmpty())
+				System.out.print(-1 + " ");
+		}
+		System.out.println();
+	}
+
+	// Driver function
+	public static void main(String[] args)
+	{
+		String str = "aabc";
+		firstNonRepeating(str);
+	}
+}
+// This code is Contributed by Sumit Ghosh
+import java.util.*;
+public class QueueProblem 
+{
+	public static  String FirstNonRepeating(String A)
+    {
+		String result ="";
+		HashMap<Character,Integer> map = new HashMap<>();
+		Queue<Character> q = new LinkedList<>();
+		for(int i=0;i<A.length();i++)
+		{
+			if(map.containsKey(A.charAt(i)))
+			{
+				map.put(A.charAt(i), map.get(A.charAt(i))+1);
+			}
+			else
+			{
+				map.put(A.charAt(i),1);
+			}
+			if(map.get(A.charAt(i))==1)
+			{
+				q.add(A.charAt(i));
+			}
+			while(!q.isEmpty())
+			{
+				char ch = A.charAt(i);
+				if(map.get(ch)==1)
+					break;
+				else
+					q.remove();
+			}
+			if(q.isEmpty())
+				result+=-1;
+			else
+				result+=q.peek();
+		}	
+		return result;
+    }
+	public static void main(String[] args) 
+	{
+		 String A = "aabc";
+		 System.out.println(FirstNonRepeating(A));
+	}
+
+}
