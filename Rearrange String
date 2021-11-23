@@ -1,0 +1,70 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
+
+public class Main extends Thread{
+
+    static class Node{
+        char c;
+        int count;
+
+        public Node(char c, int count) {
+            this.c = c;
+            this.count = count;
+        }
+    }
+    public static String Solution(String s){
+
+        PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>() {
+            @Override
+            public int compare(Node o1, Node o2) {
+                if(o1.count==o2.count) {
+                    return o1.c-o2.c;
+                }
+                return o2.count-o1.count;
+            }
+        });
+
+        int count[]= new int[26];
+
+        for(int i=0;i<s.length();i++){
+            count[s.charAt(i)-'a']++;
+        }
+
+        for(int i = 0;i<26;i++){
+            if(count[i]>0){
+                if(count[i]>s.length()/2) return "No Solution";
+                else
+                    pq.add(new Node( (char)('a'+i), count[i]));
+            }
+
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while(pq.size()>=2){
+           Node m1 = pq.poll();
+           Node m2 = pq.poll();
+
+           sb.append(m1.c);
+           sb.append(m2.c);
+
+           if(--m1.count>0){
+               pq.add(m1);
+           }
+            if(--m2.count>0){
+                pq.add(m2);
+            }
+        }
+
+        if (pq.size() > 0) {
+            sb.append(pq.poll().c);
+        }
+        return sb.toString();
+    }
+    public static void main(String[] args)
+    {
+        String s = "abbc";
+        System.out.print(Solution(s));
+    }
+}
