@@ -1,0 +1,58 @@
+
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int val) {
+        this.data = val;
+        this.left = this.right = null;
+    }
+}
+public class Main{
+
+    private static int maxElement(Node root, int dis){
+        Node curr = root;
+        int max_ele = Integer.MIN_VALUE;
+        while(curr!=null){
+            if(curr.data>dis){
+                max_ele = Math.max(curr.data,max_ele);
+                curr = curr.left;
+            }else {
+                max_ele = Math.max(curr.data,max_ele);
+                curr = curr.right;
+            }
+        }
+
+        return max_ele;
+    }
+    public static Node LCA(Node root, int n1, int n2) {
+
+        if (n1 < root.data && n2 < root.data) {
+            return LCA(root.left, n1, n2);
+        } else if (n1 > root.data && n2 > root.data) {
+            return LCA(root.right, n1, n2);
+        } else
+            return root;
+    }
+    public static void Solution(Node root, int x, int y){
+
+        Node lca = LCA(root,x,y);
+        int m1 = maxElement(lca,x);
+        int m2 = maxElement(lca,y);
+        System.out.println(Math.max(m1,m2));
+    }
+
+    public static void main(String[] args)
+    {
+        Node root = new Node(18);
+        root.left = new Node(9);
+        root.right = new Node(36);
+        root.left.left = new Node(6);
+        root.left.right = new Node(12);
+        root.left.left.left = new Node(1);
+        root.left.left.right = new Node(8);
+        root.left.right.left= new Node(10);
+
+        Solution(root,1,10);
+    }
+}
