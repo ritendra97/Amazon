@@ -1,0 +1,53 @@
+//All Nodes Distance K in Binary Tree
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int val) {
+        this.data = val;
+        this.left = this.right = null;
+    }
+}
+class Res{
+    int r= Integer.MIN_VALUE;
+}
+
+public class Main {
+
+    public static int Solution(Node root, Res r){
+
+        if(root==null) return Integer.MAX_VALUE;
+        if(root.left==null && root.right==null) return root.data;
+        int val = Math.min( Solution(root.left,r),Solution(root.right,r) );
+        r.r = Math.max(r.r, root.data-val);
+
+        return Math.min(val, root.data);
+    }
+    public static void print(Node root){
+        if(root==null) return;
+
+        System.out.print(root.data+" ");
+        print(root.left);
+        print(root.right);
+    }
+    public static void main(String[] args){
+
+        Node root = new Node(8);
+        root.left = new Node(3);
+        root.left.left = new Node(1);
+        root.left.right = new Node(6);
+        root.left.right.left = new Node(4);
+        root.left.right.right = new Node(7);
+        root.right = new Node(10);
+        root.right.right = new Node(14);
+        root.right.right.left = new Node(13);
+
+        Res r = new Res();
+        Solution(root,r);
+        System.out.println(r.r);
+    }
+}
