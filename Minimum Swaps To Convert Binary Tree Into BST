@@ -1,0 +1,63 @@
+//Shortest substring with all characters
+
+import java.util.*;
+
+class pair{
+    int val;
+    int ind;
+
+    public pair(int val, int ind) {
+        this.val = val;
+        this.ind = ind;
+    }
+}
+public class Main3 {
+
+    public static void inorder(int arr[], List<Integer> a, int index){
+        if(index>= arr.length) return;
+
+        inorder(arr,a,2*index+1);
+        a.add(arr[index]);
+        inorder(arr,a,2*index+2);
+
+    }
+    public static void Solution(int arr[], int n){
+        List<Integer> a = new ArrayList<>();
+        inorder(arr,a,0);
+        boolean visited[] = new boolean[n];
+        pair[] temp = new pair[n];
+        for(int i = 0;i<n;i++){
+            temp[i] = new pair(a.get(i),i);
+        }
+
+        Arrays.sort(temp, new Comparator<pair>(){
+
+            @Override
+            public int compare(pair p1, pair p2){
+                return p1.val-p2.val;
+            }
+        });
+
+        int ans = 0;
+        for (int i=0;i< arr.length;i++){
+
+            if(visited[i]==true || temp[i].ind==i) continue;
+
+            int cycle_count=0;
+            int j = i;
+            while (!visited[j]){
+                visited[j] = true;
+                j=temp[j].ind;
+                cycle_count++;
+            }
+            if(cycle_count>0) ans+=cycle_count-1;
+
+        }
+        System.out.println(ans);
+        a.forEach(System.out::println);
+    }
+    public static void main(String[] args){
+        int arr[] = {5, 6, 7, 8, 9, 10, 11};
+        Solution(arr,arr.length);
+    }
+}
