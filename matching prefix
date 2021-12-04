@@ -1,0 +1,37 @@
+import java.util.HashMap;
+import java.util.Stack;
+
+public class Main4 {
+
+    public static void Solution(String[] arr){
+        HashMap<String ,Integer> map = new HashMap<>();
+
+        int cost = 0;
+        for (int i = 0;i< arr.length;i++){
+            cost+=arr[i].length();
+            String prefix = "";
+            for(int j = 0;j<arr[i].length();j++){
+                prefix+=arr[i].charAt(j);
+                if(!map.containsKey(prefix)){
+                    map.put(prefix,0);
+                }
+                map.put(prefix,map.get(prefix)+1);
+            }
+        }
+
+        int min_length = Integer.MAX_VALUE;
+        for(String key : map.keySet()){
+
+            int len = key.length();
+            int expected = len*map.get(key);
+            if(min_length>cost-expected){
+                min_length = cost-expected;
+            }
+        }
+        System.out.println(min_length);
+    }
+    public static void main(String[] args){
+        String[] arr = {"co", "code", "studio", "codingninjas", "coding", "debug", "coder", "cipher"};
+        Solution(arr);
+    }
+}
