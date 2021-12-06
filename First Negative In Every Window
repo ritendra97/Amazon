@@ -1,0 +1,30 @@
+import java.util.Arrays;
+
+public class Main2 {
+
+	public static int[] firstNegative(int[] arr, int n, int k) {
+		int firstIndex = 0;
+		int ans[] = new int[n - k + 1];
+		int index = 0;
+
+		for (int i = k - 1; i < n; i++) {
+
+			while (firstIndex < i && (firstIndex <= i - k || arr[firstIndex] >= 0)) {
+				firstIndex++;
+			}
+
+			if (arr[firstIndex] < 0) {
+				ans[index++] = arr[firstIndex];
+			} else {
+				ans[index++] = 0;
+			}
+		}
+		Arrays.stream(ans).forEach(System.out::print);
+		return ans;
+	}
+
+	public static void main(String[] args) {
+		int arr[] = { 5, -3, 2, 3, -4 };
+		firstNegative(arr, arr.length, 3);
+	}
+}
