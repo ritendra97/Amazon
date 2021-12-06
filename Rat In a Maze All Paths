@@ -1,0 +1,49 @@
+import java.util.ArrayList;
+
+public class Main4 {
+
+    public static void Solution(int[][] maze, int n, int r, int c,String psf, ArrayList<String> ps,boolean visited[][]){
+        if(r==n-1 && c==n-1){
+            ps.add(psf);
+            return;
+        }
+
+        //down
+        if((r+1<n) && !visited[r+1][c] && maze[r+1][c]==1){
+            visited[r][c]=true;
+            Solution(maze,n,r+1,c,psf+"D",ps,visited);
+            visited[r][c]=false;
+        }
+
+        //left
+        if((c-1>=0) && !visited[r][c-1] && maze[r][c-1]==1){
+            visited[r][c]=true;
+            Solution(maze,n,r,c-1,psf+"L",ps,visited);
+            visited[r][c]=false;
+        }
+
+        //right
+        if((c+1<n) && !visited[r][c+1] && maze[r][c+1]==1){
+            visited[r][c]=true;
+            Solution(maze,n,r,c+1,psf+"R",ps,visited);
+            visited[r][c]=false;
+        }
+
+        //Up
+        if((r-1>=0) && !visited[r-1][c] && maze[r-1][c]==1){
+            visited[r][c]=true;
+            Solution(maze,n,r-1,c,psf+"U",ps,visited);
+            visited[r][c]=false;
+        }
+    }
+    public static ArrayList<String> ratInAMaze(int[][] maze, int n) {
+        ArrayList<String> ps = new ArrayList<>();
+        boolean visited[][]= new boolean[maze.length][maze[0].length];
+        Solution(maze, n, 0, 0,"",ps,visited);
+        return ps;
+    }
+    public static void main(String[] args){
+        int arr[][]= {{1, 0, 0,0},{1, 1,0, 1},{1, 1, 0,0},{0,1,1,1}};
+        System.out.print(ratInAMaze(arr,arr.length));
+    }
+}
