@@ -1,0 +1,53 @@
+/*
+	Time complexity: O(N^2) 
+	Space complexity: O(N)
+	
+	Where 'N' is the number of nodes in the given binary tree.
+*/
+
+import java.util.ArrayList;
+
+public class Solution {
+
+	private static void helper(TreeNode<Integer> root, ArrayList<ArrayList<Integer>> reqPaths, int k,
+			ArrayList<Integer> curPath) {
+		// Return, If root is null.
+		if (root == null) {
+			return;
+		}
+
+		// .add the value of the current node in "curPath".
+		curPath.add(root.data);
+
+		// Check if this is the leaf node and its value is equal to the 'K'.
+		if (root.left == null && root.right == null && root.data == k) {
+
+			reqPaths.add(new ArrayList<Integer>(curPath));
+		}
+
+		// Check required paths in the left subtrees and right subtrees.
+		helper(root.left, reqPaths, k - root.data, curPath);
+		helper(root.right, reqPaths, k - root.data, curPath);
+
+		// Remove the value of the current node from the "curPath".
+		curPath.remove(curPath.size() - 1);
+	}
+
+	public static ArrayList<ArrayList<Integer>> KSumPaths(TreeNode<Integer> root, int k) {
+		// ArrayList to holds all the required Paths.
+		ArrayList<ArrayList<Integer>> reqPaths = new ArrayList<ArrayList<Integer>>();
+
+		// If, tree is empty then no ways are possible.
+		if (root == null) {
+			return reqPaths;
+		}
+
+		// ArrayList to store the value of nodes that are involved in the current path.
+		ArrayList<Integer> curPath = new ArrayList<Integer>();
+
+		// Call the helper function.
+		helper(root, reqPaths, k, curPath);
+
+		return reqPaths;
+	}
+}
