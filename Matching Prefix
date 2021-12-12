@@ -51,3 +51,84 @@ public class Main4 {
         Solution(arr);
     }
 }
+
+
+/*
+    Time Complexity: O( N * L )
+    Space Complexity: O( N * L )
+
+    where N and L denotes the number of strings and the maximum length of string 
+*/
+
+import java.util.ArrayList;
+import java.util.HashMap;
+public class Solution {
+    public static String matchingPrefix(int n, ArrayList < String > arr) {
+        
+        // Variable to store the cost of input array
+        int cost = 0;
+
+        // Hash-map to store frequency of each prefix string
+        HashMap < String, Integer > mp = new HashMap < > ();
+
+        // Iterate array strings
+        for (int i = 0; i < n; i++) {
+
+            // Adding string length to cost
+            cost += arr.get(i).length();
+
+            // Variable to store the current prefix string
+            String curPrefix = "";
+
+            // Generate all prefix strings
+            for (int j = 0; j < arr.get(i).length(); j++) {
+
+                // Genrate new prefix string by adding the next charachter
+                // to the previous prefix string
+                curPrefix += arr.get(i).charAt(j);
+
+                // Updating frequency of each prefix string generated
+                if (mp.get(curPrefix) == null) {
+                    mp.put(curPrefix, 0);
+                }
+                mp.put(curPrefix, mp.get(curPrefix) + 1);
+            }
+
+        }
+
+        // Variable to store minimum cost
+        int minCost = Integer.MAX_VALUE;
+
+        // Variable to store the string to be returned
+        String ans = "";
+
+        // Iterating the hash-map generated
+        for (HashMap.Entry < String, Integer > u: mp.entrySet()) {
+
+            // Prefix length of the current prefix string
+            int prefixLen = (u.getKey()).length();
+
+            // Frequenct of the current prefix string
+            int freq = u.getValue();
+
+            // Cost if the current prefix string is used
+            int curCost = cost - prefixLen * freq;
+
+            // Updating minCost if a lower cost is found
+            if (curCost < minCost) {
+                minCost = curCost;
+                ans = u.getKey();
+            }
+
+            // Updating 'ans' if a lexicographically smaller string is found
+            if (curCost == minCost) {
+                if (u.getKey().compareTo(ans) < 0) {
+                    ans = u.getKey();
+                }
+            }
+
+        }
+
+        return ans;
+    }
+}
