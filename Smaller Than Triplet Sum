@@ -1,0 +1,47 @@
+//Smaller Than Triplet Sum
+/*
+    Time Complexity: O( N ^ 2 )
+    Space Complexity: O( 1 )
+
+    where N denotes the size of the array.
+*/
+
+import java.util.Arrays;
+
+public class Solution {
+    public static int threeSumSmaller(int n, int[] arr, int target) {
+        // Sort the input array.
+        Arrays.sort(arr);
+
+        // Initialize a variable to store the final answer.
+        int count = 0;
+
+        // Run a for loop to select the first element of the triplet.
+        for (int i = 0; i < n; i++) {
+
+            // Initialize two pointers.
+            int st = i + 1, en = n - 1;
+
+            // Updated value of the target.
+            int updTarget = target - arr[i];
+
+            // While loop.
+            while (st < en) {
+
+                // Decrement the 'en' pointer if required.
+                while (en > 0 && arr[st] + arr[en] >= updTarget) {
+                    en--;
+                }
+
+                // Consider all the triplets { ARR[i], ARR[st], ___ }
+                count += Math.max(0, en - st);
+
+                // Increment the value of 'st'.
+                st++;
+            }
+        }
+
+        // Return the final answer.
+        return count;
+    }
+}
