@@ -1,0 +1,24 @@
+/*
+	Time complexity: O(N)
+	Space complexity: O(1) 
+
+	Where N represents the number of meeting.
+*/
+
+public class Solution {
+
+	public static int maxMinutes(int meetings[], int n) {
+		int oneAway = 0;
+		int twoAway = 0;
+
+		for (int i = n - 1; i >= 0; i--) {
+			int scheduleCurrMeeting = meetings[i] + twoAway;
+			int skipCurrMeeting = oneAway;
+			int temp = Math.max(scheduleCurrMeeting, skipCurrMeeting);
+			twoAway = oneAway;
+			oneAway = temp;
+		}
+		return oneAway;
+
+	}
+}
