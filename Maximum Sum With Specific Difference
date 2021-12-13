@@ -1,0 +1,77 @@
+/*
+    Time Complexity: O(N * log(N))
+    Space Complexity: O(N)
+
+    Where 'N' is the size of the array.
+*/
+
+import java.util.Arrays;
+
+public class Solution {
+    public static int maxSumPairWithDifferenceLessThanK(int[] arr, int n, int k) {
+        
+        Arrays.sort(arr);
+
+        // Here, 'DP[i]' denotes the maximum disjoint pair sum we can achieve using first 'i' elements.
+        int[] dp = new int[n];
+
+        for(int i = 1; i < n; i++){
+
+            // First give previous value to 'DP[i]' i.e. no pairing with (i - 1)th element.
+            dp[i] = dp[i - 1];
+
+            // If current and previous element can form a pair.
+            if(arr[i] - arr[i - 1] < k){
+
+                // Update 'DP[i]' by choosing maximum between pairing and not pairing.
+                if(i >= 2){
+                    dp[i] = Math.max(dp[i], dp[i - 2] + arr[i] + arr[i - 1]);
+                }
+                else{
+                    dp[i] = Math.max(dp[i], arr[i] + arr[i - 1]);
+                }
+            }
+        }
+
+        return dp[n - 1];
+    }
+}
+
+
+
+/*
+    Time Complexity: O(N * log(N))
+    Space Complexity: O(1)
+
+    Where 'N' is the size of the array.
+*/
+
+import java.util.Arrays;
+
+public class Solution {
+    public static int maxSumPairWithDifferenceLessThanK(int[] arr, int n, int k) {
+        // Initialize 'MAXSUM' to 0.
+        int maxSum = 0;
+
+        // Sort all the elements present inside the array.
+        Arrays.sort(arr);
+
+        int i = n - 1;
+
+        while(i > 0){
+            /*
+                If the difference of 'ARR[i]' and 'ARR[i - 1]' is less than 'K', 
+                then add the pair to the 'MAXSUM'.
+            */
+            if(arr[i] - arr[i - 1] < k){
+                maxSum += arr[i];
+                maxSum += arr[i - 1];
+                i -= 1;
+            }
+            
+            i -= 1;
+        }
+
+        return maxSum;
+    }
+}
