@@ -1,0 +1,80 @@
+// Find Sum of all unique sub-array sum for a given array.
+// Time Complexity: O(N^2 + N * logN)
+// Auxiliary Space: O(N)
+
+//Maximum Binary Tree
+
+import java.util.*;
+
+public class Main4 {
+
+    public static void Solution(int arr[]){
+
+        Vector<Integer> v = new Vector<>();
+        for(int i=1;i< arr.length;i++){
+            arr[i] = arr[i-1]+arr[i];
+        }
+
+        for(int i =1;i< arr.length;i++){
+            for(int j = i;j< arr.length;j++){
+                v.add(arr[j]-arr[i-1]);
+            }
+        }
+        Collections.sort(v);
+        for(int i=0;i<v.size()-1;i++){
+            if(v.get(i)==v.get(i+1)){
+                int j = i+1;
+                while(v.get(j)==v.get(i) && j<v.size()) {
+                    v.set(j,0);
+                    j++;
+                }
+                v.set(i,0);
+            }
+        }
+        Integer sum = v.stream().reduce(0,(a,b)->a+b);
+        System.out.println(sum);
+    }
+    public static void main(String[] args){
+       int arr[] = {3, 2, 3, 1, 4};
+       Solution(arr);
+    }
+}
+
+//Time Complexity O(n^2)
+//Space Complexity O(n)
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Main4 {
+
+    public static void Solution(int arr[]){
+
+        int res = 0;
+        int n = arr.length;
+        HashMap<Integer, Integer> m = new HashMap<Integer, Integer>();
+        for (int i = 0; i < n; i++)
+        {
+            int sum = 0;
+            for (int j = i; j < n; j++)
+            {
+                sum += arr[j];
+                if (m.containsKey(sum))
+                {
+                    m.put(sum, m.get(sum) + 1);
+                }
+                else
+                {
+                    m.put(sum, 1);
+                }
+            }
+        }
+        for(int key:m.keySet()){
+            if(m.get(key)==1) System.out.println(key);
+        }
+    }
+    public static void main(String[] args){
+       int arr[] = {1,1,1,1};
+       Solution(arr);
+    }
+}
