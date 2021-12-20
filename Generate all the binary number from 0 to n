@@ -1,0 +1,50 @@
+//Generate all the binary number from 0 to n
+
+public class Main4 {
+
+    public static String BinaryNumber(int n, int base){
+
+        boolean negative = false;
+        String s = "";
+        if(n==0) return "0";
+        negative = (n<0);
+        if(negative) n = -1*n;
+
+        while (n!=0){
+            s=(n%base)+s;
+            n = n/base;
+        }
+
+        if(negative) s="-"+s;
+        return s;
+    }
+
+    public static void main(String[] args){
+            System.out.println(BinaryNumber(10,2));
+    }
+}
+
+  import java.util.LinkedList;
+import java.util.Queue;
+
+public class Main4 {
+
+    public static String BinaryNumber(int n, int base){
+        Queue<String> q = new LinkedList<>();
+        q.add("1");
+        int total = 0;
+        while (total<n){
+            String s = q.remove();
+            System.out.println(s);
+
+            q.add(s+"0");
+            q.add(s+"1");
+            total++;
+        }
+        return "";
+    }
+
+    public static void main(String[] args){
+            System.out.println(BinaryNumber(10,2));
+    }
+}
