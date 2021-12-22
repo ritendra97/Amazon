@@ -1,0 +1,53 @@
+//Remove Minimum Characters so that Two Strings Become Anagrams
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+class word{
+    String str;
+    int index;
+
+    public word(String str, int index) {
+        this.str = str;
+        this.index = index;
+    }
+}
+
+public class Main4 {
+
+    public static void printAnagramsTogether(String [] wordArr, int size){
+
+        word[] arr = new word[wordArr.length];
+        for(int i = 0;i<wordArr.length;i++){
+            arr[i] = new word(wordArr[i],i);
+        }
+
+        for(int i = 0;i< wordArr.length;i++){
+            char[] c = arr[i].str.toCharArray();
+            Arrays.sort(c);
+            arr[i] = new word(c.toString(),i);
+        }
+
+        Arrays.sort(arr, new Comparator<word>() {
+            @Override
+            public int compare(word o1, word o2) {
+                return o1.str.compareTo(o2.str);
+            }
+        });
+
+        String ans[] = new String[wordArr.length];
+        for(int i = 0;i< wordArr.length;i++){
+            ans[i] = wordArr[arr[i].index];
+        }
+        Arrays.stream(ans).forEach(System.out::println);
+    }
+
+    public static void main(String[] args){
+        String wordArr[] = { "cat", "dog", "tac", "god", "act" };
+        int size = wordArr.length;
+        printAnagramsTogether(wordArr, size);
+    }
+}
+
+
+// 
