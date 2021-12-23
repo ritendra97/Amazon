@@ -1,0 +1,56 @@
+//Next Permutation
+import org.jetbrains.annotations.NotNull;
+
+import javax.xml.transform.SourceLocator;
+import java.util.Arrays;
+import java.util.Stack;
+
+public class Main4 {
+
+    public static void Helper(int [] arr){
+        if(arr==null || arr.length==1) return;
+
+        int i = arr.length-2;
+
+        while(i>=0 && arr[i]>=arr[i+1]){
+            i--;
+        }
+
+        if(i>=0){
+            int j = arr.length-1;
+            while (j>=0 && arr[j]<=arr[i]){
+                j--;
+            }
+            swap(arr,i,j);
+        }
+        reverse(arr,i+1,arr.length-1);
+    }
+
+    public static void swap(int arr[] , int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void reverse(int arr[], int i, int j){
+        int s = i;
+        int e = j;
+        while(s<=e){
+            int temp = arr[s];
+            arr[s] = arr[e];
+            arr[e] = temp;
+            s++;
+            e--;
+        }
+    }
+
+    public static void nextPermutation(int arr[]){
+        Helper(arr);
+        Arrays.stream(arr).forEach(System.out::print);
+    }
+
+    public static void main(String [] args){
+        int arr[] = {3,2,1};
+        nextPermutation(arr);
+    }
+}
