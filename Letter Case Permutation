@@ -1,0 +1,29 @@
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main4 {
+
+    public static void Helper(List<String> result, char arr[], int pos){
+
+        result.add(new String(arr));
+        for(int i = pos;i< arr.length;i++){
+            if(Character.isAlphabetic(arr[i])){
+                char bkp = arr[i];
+                arr[i] = Character.isUpperCase(arr[i])?Character.toLowerCase(arr[i]):Character.toUpperCase(arr[i]);
+                Helper(result,arr,i+1);
+                arr[i] = bkp;
+            }
+        }
+    }
+    public static List<String> permutations(@NotNull String str){
+        List<String> result = new ArrayList<>();
+        Helper(result,str.toCharArray(),0);
+        return result;
+    }
+    public static void main(String [] args){
+        String str = "a1b2c3";
+        System.out.println(permutations(str));
+    }
+}
