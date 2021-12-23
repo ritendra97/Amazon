@@ -1,0 +1,31 @@
+//Check If String Follows Order Of Characters By A Pattern Or Not
+
+
+public class Main4 {
+
+    public static boolean Solution(String str, String pat){
+        int count[] = new int[256];
+        int order = 1;
+        Arrays.fill(count,-1);
+        for(int i=0;i<pat.length();i++){
+            count[pat.charAt(i)]=order;
+            order++;
+        }
+
+        int last_Order = -1;
+        for(int i = 0;i<str.length();i++){
+            if(count[str.charAt(i)]!=-1){
+                if(count[str.charAt(i)]<last_Order) return false;
+                last_Order = count[str.charAt(i)];
+            }
+        }
+
+        return true;
+    }
+        
+    public static void main(String[] args){
+        String str = "programming";
+        String pat = "ra";
+        System.out.println(Solution(str,pat));
+    }
+}
