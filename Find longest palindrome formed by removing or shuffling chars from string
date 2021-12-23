@@ -1,0 +1,53 @@
+//Longest Common Prefix using Sorting
+
+// Time Complexity-> O(n)
+// Space Complexity-> O(1)
+
+
+import org.jetbrains.annotations.NotNull;
+
+public class Main4 {
+
+    public static String reverse(@NotNull String str){
+        char c[]  = str.toCharArray();
+        String ans="";
+        for(int i = str.length()-1;i>=0;i--){
+            ans+=str.charAt(i);
+        }
+        return ans;
+    }
+
+    public static void Solution(@NotNull String str){
+
+        int count[] = new int[256];
+
+        for(int i = 0;i<str.length();i++){
+            count[str.charAt(i)]++;
+        }
+
+        String mid = "";
+        String beg = "";
+        String end = "";
+
+        for(char c='a';c<='z';c++){
+            if(count[c]%2==1){
+                mid = String.valueOf(count[c]);
+                count[c]--;
+            }else{
+
+                for(int j = 0;j<count[c]/2;j++){
+                    beg+=c;
+                }
+            }
+        }
+
+        end = beg;
+        end = reverse(end);
+        System.out.println(beg+mid+end);
+    }
+
+    public static void main(String [] args){
+        String str = "aabbcc";
+        Solution(str);
+    }
+}
