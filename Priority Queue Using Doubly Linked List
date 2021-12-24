@@ -1,0 +1,162 @@
+//Priority Queue Using Singly Linked List.
+
+class DoublyNode{
+    int v;
+    int p;
+    DoublyNode next = null;
+    DoublyNode(int v, int p){
+        this.v = v;
+        this.p = p;
+        this.next = null;
+    }
+}
+
+public class Main4 {
+
+    static DoublyNode temp = null;
+    static DoublyNode head = null;
+
+    public static void push(int value, int priority){
+
+        DoublyNode new_node = new DoublyNode(value, priority);
+
+        if(head==null){
+            head = new_node;
+            temp = head;
+        }else{
+            if(head!=null){
+                DoublyNode prev = null;
+                DoublyNode curr = head;
+
+                while(curr!=null && new_node.p<curr.p){
+                    prev = curr;
+                    curr = curr.next;
+                }
+                if(prev!=null){
+                    prev.next = new_node;
+                    new_node.next = curr;
+                }else{
+                    new_node.next = curr;
+                    head = new_node;
+                }
+            }else{
+                System.out.println("Please add more elements....!!");
+            }
+
+        }
+    }
+
+    public static int pop(){
+        if(head==null){
+            return 0;
+        }
+        DoublyNode ans = head;
+        head = head.next;
+        return ans.v;
+    }
+
+    public static int peek(){
+        if(head==null){
+            return 0;
+        }
+        return head.v;
+    }
+
+    public static void main(String [] args){
+
+        push(5, 2);
+        push(1, 3);
+        push(7, 5);
+        push(10, 6);
+        push(9, 1);
+        System.out.println(peek());
+    }
+}
+
+
+//Priority Queue Using Doubly Linked List.
+//Priority Queue Using Doubly Linked List
+
+class DoublyNode{
+    int v;
+    int p;
+    DoublyNode next = null,prev = null;
+    DoublyNode(int v, int p){
+        this.v = v;
+        this.p = p;
+        this.next = null;
+    }
+}
+
+public class Main4 {
+
+    static DoublyNode temp = null;
+    static DoublyNode head = null;
+
+    public static void push(int value, int priority){
+
+        DoublyNode new_node = new DoublyNode(value, priority);
+
+        if(head==null){
+            head = new_node;
+            temp = head;
+        }else{
+            if(head!=null){
+                DoublyNode prev = null;
+                DoublyNode curr = head;
+
+                while(curr!=null && new_node.p<curr.p){
+                    prev = curr;
+                    curr = curr.next;
+                }
+                if(prev!=null){
+                    prev.next = new_node;
+                    new_node.prev = prev;
+                    new_node.next = curr;
+                    curr.prev = new_node;
+                }else if(curr==null){
+                    prev.next = new_node;
+                    new_node.prev = prev;
+                }else{
+                    new_node.next = curr;
+                    curr.prev = new_node;
+                    head = new_node;
+                }
+
+            }else{
+                System.out.println("Please add more elements....!!");
+            }
+
+        }
+    }
+
+    public static int pop(){
+
+        if (head != null) {
+            int curr = head.v;
+            head = head.next;
+            if (head != null) {
+                head.prev = null;
+            }
+            return curr;
+        }
+        return -1;
+    }
+
+    public static int peek(){
+        if (head != null) {
+            return head.v;
+        }
+        return -1;
+    }
+
+    public static void main(String [] args){
+
+        push(5, 2);
+        push(1, 3);
+        push(7, 5);
+        push(10, 6);
+        push(9, 1);
+        System.out.println(peek());
+    }
+}
