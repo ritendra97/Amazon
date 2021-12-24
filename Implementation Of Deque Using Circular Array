@@ -1,0 +1,145 @@
+//Implementation of Deque using circular array
+
+public class Main4 {
+
+    static int arr[];
+    static int max = 100;
+    static int front;
+    static int rear;
+    static int size;
+
+    Main4(int size){
+        arr = new int[max];
+        front = -1;
+        rear = 0;
+        this.size=size;
+    }
+
+    public static boolean  isFull(){
+        return (front==0 && (rear==size-1 || front==rear+1) );
+    }
+
+    public static void insertFront(int val){
+
+        if(isFull()){
+            System.out.println("The Queue is Full: ");
+            return;
+        }
+        if(front==-1){
+            front= 0;
+            rear = 0;
+        }else if(front==0){
+            front = size-1;
+        }else{
+            front = front-1;
+        }
+        arr[front] = val;
+    }
+
+    public static void insertRear(int val){
+
+        if (isFull())
+        {
+            System.out.println(" Overflow ");
+            return;
+        }
+
+        if (front == -1)
+        {
+            front = 0;
+            rear = 0;
+        }
+        else if (rear == size-1)
+            rear = 0;
+        else
+            rear = rear+1;
+        arr[rear] = val ;
+    }
+
+    public static void deleteFront(){
+        if (isEmpty())
+        {
+            System.out.println("Queue Underflow\n");
+            return ;
+        }
+
+        if(front==rear){
+            front=-1;
+            rear=-1;
+        }else{
+            if(front==size-1){
+                front = 0;
+            }else{
+                front = front+1;
+            }
+        }
+    }
+
+    public static void deleteRear(){
+        if (isEmpty())
+        {
+            System.out.println(" Underflow");
+            return ;
+        }
+
+        // Deque has only one element
+        if (front == rear)
+        {
+            front = -1;
+            rear = -1;
+        }
+        else if (rear == 0)
+            rear = size-1;
+        else
+            rear = rear-1;
+    }
+
+    public static int getFront(){
+
+        if (isEmpty())
+        {
+            System.out.println(" Underflow");
+            return -1 ;
+        }
+        return arr[front];
+    }
+
+    public static int  getRear(){
+        if(isEmpty() || rear < 0)
+        {
+            System.out.println(" Underflow\n");
+            return -1 ;
+        }
+        return arr[rear];
+    }
+
+    public static boolean isEmpty(){
+        return (front == -1);
+    }
+
+    public static void main(String[] args){
+        Main4 dq = new Main4(5);
+
+        System.out.println("Insert element at rear end  : 5 ");
+        dq.insertRear(5);
+
+        System.out.println("insert element at rear end : 10 ");
+        dq.insertRear(10);
+
+        System.out.println("get rear element : "+ dq.getRear());
+
+        dq.deleteRear();
+        System.out.println("After delete rear element new rear become : " + dq.getRear());
+
+        System.out.println("inserting element at front end");
+        dq.insertFront(15);
+
+        System.out.println("get front element: " +dq.getFront());
+
+        dq.deleteFront();
+
+        System.out.println("After delete front element new front become : " +
+                +  dq.getFront());
+    }
+
+}
