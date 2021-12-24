@@ -1,0 +1,47 @@
+//Check If A Queue Can Be Sorted Into Another Queue Using A Stack
+//Check whether Strings are K Distance Apart or Not
+
+import java.util.*;
+
+public class Main4 {
+
+    public static boolean Solution(int n,Queue<Integer> q){
+        Stack<Integer> st = new Stack<>();
+        int expected = 1;
+        int fnt;
+
+        while (!q.isEmpty()){
+            fnt = q.remove();
+
+            if(fnt==expected) {
+                expected++;
+            }
+            else {
+
+                if(st.isEmpty()){
+                    st.push(fnt);
+                }else if(st.size()>0 && st.peek()<fnt){
+                    return false;
+                }else{
+                    st.push(fnt);
+                }
+            }
+            while(!st.isEmpty() && st.peek()==expected){
+                st.pop();
+                expected++;
+            }
+        }
+        if(expected-1==n && st.size()==0) return true;
+
+        return false;
+    }
+
+    public static void main(String[] args){
+        Queue<Integer> q = new LinkedList<>();
+        q.add(5);
+        q.add(1);
+        q.add(2);
+        q.add(3);
+        q.add(4);
+    }
+}
