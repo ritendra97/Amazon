@@ -1,0 +1,50 @@
+//The K Weakest Rows In A Matrix Leetcode Solution
+
+import java.util.Collections;
+import java.util.PriorityQueue;
+
+public class Main3 {
+
+    public static int BinarySearch(int[] arr, int l, int r){
+        while(l<=r){
+            int mid = l+(r-l)/2;
+            if(arr[mid]==0){
+                r=mid-1;
+            }else{
+                l=mid+1;
+            }
+        }
+        return r;
+    }
+
+    public static int Solve(int arr[][], int k){
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+
+        for(int row[] : arr){
+
+            int ps = BinarySearch(row,0,row.length-1);
+
+            if(pq.size()<k){
+                pq.add(ps);
+            }else{
+                if(pq.peek()>ps){
+                    pq.poll();
+                    pq.add(ps);
+                }
+            }
+        }
+        return pq.peek();
+    }
+
+    public static void main(String[] args){
+
+        int arr[][] = { {1,1,0,0,0},
+                        {1,1,1,1,0},
+                        {1,0,0,0,0},
+                        {1,1,0,0,0},
+                        {1,1,1,1,1}};
+
+        System.out.println(Solve(arr,3));
+    }
+}
