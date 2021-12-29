@@ -1,0 +1,133 @@
+Using DFS
+
+import java.util.SortedMap;
+import java.util.Stack;
+
+public class Main3 {
+
+    public static void helper(int arr[][], int r, int c, int newColor, int olv){
+
+        if(r<0 || c<0 || r>=arr.length || c>=arr[0].length || arr[r][c]!=olv) return;
+
+        arr[r][c] = newColor;
+
+        helper(arr,r+1, c, newColor,olv);
+        helper(arr, r-1,c, newColor,olv);
+        helper(arr, r, c+1, newColor,olv);
+        helper(arr, r, c-1, newColor,olv);
+
+    }
+
+    public static void fillColor(int arr[][], int x,int y, int newColor){
+
+        for(int i=0;i< arr.length;i++){
+            for(int j =0;j< arr[0].length;j++){
+                if(i==x && j==y){
+                    helper(arr,i,j,newColor,arr[i][j]);
+                }
+            }
+        }
+
+        for(int i=0;i< arr.length;i++){
+            for(int j =0;j< arr[0].length;j++){
+                System.out.print(arr[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args){
+
+        int arr[][] = {{1, 1, 1, 1, 1, 1, 1, 1},
+                       {1, 1, 1, 1, 1, 1, 0, 0},
+                       {1, 0, 0, 1, 1, 0, 1, 1},
+                       {1, 2, 2, 2, 2, 0, 1, 0},
+                       {1, 1, 1, 2, 2, 0, 1, 0},
+                       {1, 1, 1, 2, 2, 2, 2, 0},
+                       {1, 1, 1, 1, 1, 2, 1, 1},
+                       {1, 1, 1, 1, 1, 2, 2, 1}};
+        int x = 4;
+        int y = 4;
+        int newColor = 3;
+
+        fillColor(arr,x,y,newColor);
+    }
+}
+
+
+// Using BFS
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.SortedMap;
+import java.util.Stack;
+
+class pair{
+    int x;
+    int y;
+
+    public pair(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+public class Main3 {
+
+    public static void fillColor(int arr[][], int x,int y, int newColor){
+
+        Queue<pair> q = new LinkedList<>();
+        q.add(new pair(x,y));
+        int oc =  arr[x][y];
+        while(!q.isEmpty()){
+
+            pair p = q.remove();
+
+            int r = p.x;
+            int c = p.y;
+
+            if(r+1<arr.length && c>=0 && c< arr[0].length && arr[r+1][c]!=newColor && arr[r+1][c]==oc){
+                arr[r+1][c]=newColor;
+                q.add(new pair(r+1,c));
+            }
+
+            if(r-1>=0 && c>=0 && c< arr[0].length && arr[r-1][c]!=newColor && arr[r-1][c]==oc){
+                arr[r-1][c]=newColor;
+                q.add(new pair(r-1,c));
+            }
+
+            if(r>=0 && r<arr.length && c-1>=0 && c< arr[0].length && arr[r][c-1]!=newColor && arr[r][c-1]==oc){
+                arr[r][c-1]=newColor;
+                q.add(new pair(r,c-1));
+            }
+
+            if(r>=0 && r<arr.length && c+1>=0 && c+1< arr[0].length && arr[r][c+1]!=newColor && arr[r][c+1]==oc){
+                arr[r][c+1]=newColor;
+                q.add(new pair(r,c+1));
+            }
+        }
+
+        for(int i=0;i< arr.length;i++){
+            for(int j =0;j< arr[0].length;j++){
+                System.out.print(arr[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args){
+
+        int arr[][] = {{1, 1, 1, 1, 1, 1, 1, 1},
+                       {1, 1, 1, 1, 1, 1, 0, 0},
+                       {1, 0, 0, 1, 1, 0, 1, 1},
+                       {1, 2, 2, 2, 2, 0, 1, 0},
+                       {1, 1, 1, 2, 2, 0, 1, 0},
+                       {1, 1, 1, 2, 2, 2, 2, 0},
+                       {1, 1, 1, 1, 1, 2, 1, 1},
+                       {1, 1, 1, 1, 1, 2, 2, 1}};
+        int x = 4;
+        int y = 4;
+        int newColor = 3;
+
+        fillColor(arr,x,y,newColor);
+    }
+}
