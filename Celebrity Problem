@@ -1,0 +1,85 @@
+//Celebrity Problem 
+
+import java.util.SortedMap;
+
+public class Main3 {
+
+    public static int Solve(int arr[][]){
+
+        int ps = 0;
+        for(int i = 0;i<arr.length;i++){
+            boolean f = true;
+            for(int j = 0;j<arr[0].length;j++){
+                if(arr[i][j]==1){
+                    f=false;
+                }
+            }
+
+            if(f==true){
+                ps=i;
+            }
+        }
+
+        for(int i = 0;i<arr.length;i++){
+            if(i!=ps && arr[i][ps]==0) return -1;
+        }
+
+        return ps+1;
+    }
+
+    public static void main(String[] args){
+
+        int matrix[][] = { {0, 0, 1, 0},
+                {0, 0, 1, 0},
+                {0, 1, 0, 0},
+                {0, 0, 1, 0} };
+
+        System.out.println(Solve(matrix));
+
+    }
+}
+
+import java.util.SortedMap;
+import java.util.Stack;
+
+public class Main3 {
+
+    public static int Solve(int arr[][]){
+
+        Stack<Integer> st = new Stack<>();
+        for(int i = 0;i< arr.length;i++){
+            st.push(i);
+        }
+
+        while(st.size()>=2){
+            int i = st.pop();
+            int j = st.pop();
+
+            if(arr[i][j]==1){
+                st.push(j);
+            }else{
+                st.push(i);
+            }
+        }
+
+        int ps = st.pop();
+        for(int i=0;i<arr.length;i++){
+            if(i!=ps){
+                if(arr[i][ps]==0 || arr[ps][i]==1) return -1;
+            }
+        }
+
+        return ps;
+    }
+
+    public static void main(String[] args){
+
+        int matrix[][] = { {0, 0, 1, 0},
+                           {0, 0, 1, 0},
+                           {0, 0, 0, 0},
+                           {0, 0, 1, 0} };
+
+        System.out.println(Solve(matrix));
+
+    }
+}
