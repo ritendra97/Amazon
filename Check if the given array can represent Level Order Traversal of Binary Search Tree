@@ -38,3 +38,34 @@ static boolean levelOrderIsOfBST(int arr[], int n)
             return true;
         return false;
     }
+
+// My Solution Both are same
+public static Node constructTree(int arr[]){
+        Queue<Node> q = new LinkedList<>();
+        int index=0;
+        Node root = new Node(arr[0]);
+        q.add(root);
+        while (!q.isEmpty()){
+            Node node = q.remove();
+            index++;
+            if(index<arr.length){
+                node.left = new Node(arr[index]);
+                q.add(node.left);
+            }
+            index++;
+            if(index<arr.length){
+                node.right = new Node(arr[index]);
+                q.add(node.right);
+            }
+        }
+
+        return root;
+    }
+
+    public static boolean isBST(Node root, int min, int max){
+        if(root==null) return true;
+        if(min>=root.data || max<= root.data) return false;
+
+        return isBST(root.left,min,root.data) && isBST(root.right,root.data,max);
+
+    }
