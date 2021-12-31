@@ -1,0 +1,54 @@
+public static boolean checkOneChild(int arr[]){
+
+        for(int i = 0;i< arr.length-1;i++){
+
+            if(arr[i]>arr[i+1]){
+                boolean smaller = true;
+                for(int j = i+1;j<arr.length;j++){
+                    if(arr[i]<arr[j]) smaller = false;
+                }
+                if(smaller==false) return false;
+            }else {
+                boolean greater = true;
+                for(int j = i+1;j<arr.length;j++){
+                    if(arr[i]>arr[j]) greater = false;
+                }
+
+                if(greater==false) return false;
+            }
+        }
+        return true;
+    }
+    public static void main(String[] args){
+        int pre[] = {6, 15, 8,7, 9, 11};
+        boolean ans = checkOneChild(pre);
+        System.out.print(ans);
+    }
+}
+
+class BinaryTree {
+ 
+    boolean hasOnlyOneChild(int pre[], int size) {
+        int nextDiff, lastDiff;
+ 
+        for (int i = 0; i < size - 1; i++) {
+            nextDiff = pre[i] - pre[i + 1];
+            lastDiff = pre[i] - pre[size - 1];
+            if (nextDiff * lastDiff < 0) {
+                return false;
+            };
+        }
+        return true;
+    }
+ 
+    public static void main(String[] args) {
+        BinaryTree tree = new BinaryTree();
+        int pre[] = new int[]{8, 3, 5, 7, 6};
+        int size = pre.length;
+        if (tree.hasOnlyOneChild(pre, size) == true) {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
+    }
+}
