@@ -1,0 +1,202 @@
+//Check given array of size n can represent BST of n levels or not
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+class Node {
+	int data;
+	Node left;
+	Node right;
+
+	Node(int data) {
+		this.data = data;
+	}
+}
+
+public class Graph {
+
+	public static Node BST(Node root, int val) {
+		if (root == null)
+			return new Node(val);
+
+		if (val < root.data) {
+			root.left = BST(root.left, val);
+		} else {
+			root.right = BST(root.right, val);
+		}
+
+		return root;
+	}
+
+	public static Node Solve(int arr[]) {
+		Node root = null;
+		for (int i = 0; i < arr.length; i++) {
+			root = BST(root, arr[i]);
+		}
+		return root;
+	}
+
+	public static int height(Node root) {
+		if (root == null)
+			return 0;
+
+		int l = height(root.left);
+		int r = height(root.right);
+		int th = Math.max(l, r) + 1;
+
+		return th;
+	}
+
+	public static void main(String[] args) {
+
+		int pre[] = { 5123, 3300, 783, 1111, 890};
+		int n = pre.length;
+		Node root = Solve(pre);
+		int size = height(root);
+		System.out.print(size);
+		if (size == n)
+			System.out.print("Yes");
+		else
+			System.out.print("No");
+	}
+}
+//
+// Java program to Check given array
+// can represent BST or not
+class GFG
+{
+
+	// structure for Binary Node
+	static class Node
+	{
+		int key;
+		Node right, left;
+	};
+
+	static Node newNode(int num)
+	{
+		Node temp = new Node();
+		temp.key = num;
+		temp.left = null;
+		temp.right = null;
+		return temp;
+	}
+
+	// To create a Tree with n levels. We always
+	// insert new node to left if it is less than
+	// previous value.
+	static Node createNLevelTree(int arr[], int n)
+	{
+		Node root = newNode(arr[0]);
+		Node temp = root;
+		for (int i = 1; i < n; i++)
+		{
+			if (temp.key > arr[i])
+			{
+				temp.left = newNode(arr[i]);
+				temp = temp.left;
+			}
+			else
+			{
+				temp.right = newNode(arr[i]);
+				temp = temp.right;
+			}
+		}
+		return root;
+	}
+
+	// Please refer below post for details of this
+	// function.
+	// https:// www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+	static boolean isBST(Node root, int min, int max)
+	{
+		if (root == null)
+		{
+			return true;
+		}
+
+		if (root.key < min || root.key > max)
+		{
+			return false;
+		}
+
+		// Allow only distinct values
+		return (isBST(root.left, min,
+				(root.key) - 1)
+				&& isBST(root.right,
+						(root.key) + 1, max));
+	}
+
+	// Returns tree if given array of size n can
+	// represent a BST of n levels.
+	static boolean canRepresentNLevelBST(int arr[], int n)
+	{
+		Node root = createNLevelTree(arr, n);
+		return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+
+	// Driver code
+	public static void main(String[] args)
+	{
+		int arr[] = {512, 330, 78, 11, 8};
+		int n = arr.length;
+
+		if (canRepresentNLevelBST(arr, n))
+		{
+			System.out.println("Yes");
+		}
+		else
+		{
+			System.out.println("No");
+		}
+	}
+}
+
+/* This code contributed by PrinciRaj1992 */
+// Java program to Check given array
+// can represent BST or not
+class Solution
+{
+
+// Driver code
+public static void main(String args[])
+{
+	int arr[] = { 5123, 3300, 783, 1111, 890 };
+	int n = arr.length;
+	int max = Integer.MAX_VALUE;
+	int min = Integer.MIN_VALUE;
+	boolean flag = true;
+
+	for (int i = 1; i < n; i++) {
+
+		// This element can be inserted to the right
+		// of the previous element, only if it is greater
+		// than the previous element and in the range.
+		if (arr[i] > arr[i - 1] && arr[i] > min && arr[i] < max) {
+			// max remains same, update min
+			min = arr[i - 1];
+		}
+		// This element can be inserted to the left
+		// of the previous element, only if it is lesser
+		// than the previous element and in the range.
+		else if (arr[i] < arr[i - 1] && arr[i] > min && arr[i] < max) {
+			// min remains same, update max
+			max = arr[i - 1];
+		}
+		else {
+			flag = false;
+			break;
+		}
+	}
+
+	if (flag) {
+		System.out.println("Yes");
+	}
+	else {
+		// if the loop completed successfully without encountering else condition
+		System.out.println("No");
+	}
+
+}
+}
+//contributed by Arnab Kundu
