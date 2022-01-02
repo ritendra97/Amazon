@@ -1,3 +1,47 @@
+
+Time Complexity: O( N^2 * L^2 )
+Space Complexity: O(1)
+    
+import java.util.ArrayList;
+public class Solution {
+
+    public static String matchingPrefix(int N, ArrayList < String > arr) {
+        
+        int minCost = Integer.MAX_VALUE;
+        String ans = new String();
+
+        for (int i = 0; i < N; i++) {
+
+            for (int j = 0; j < arr.get(i).length(); j++) {
+                int curCost = 0;
+                int len = j + 1;
+                String prefixStr = arr.get(i).substring(0, len);
+            
+                for (int k = 0; k < N; k++) {
+                    curCost += arr.get(k).length();
+                    if (arr.get(k).length() >= len) {
+                        String newStr = arr.get(k).substring(0, len);
+                        if (newStr.equals(prefixStr)) {
+                            curCost -= len;
+                        }
+                    }
+                }
+                if (curCost < minCost) {
+                    minCost = curCost;
+                    ans = prefixStr;
+               }
+
+                if (curCost == minCost) {
+                    if (ans.compareTo(prefixStr) > 0) ans = prefixStr;
+                }
+
+            }
+        }
+        return ans;
+    }
+}
+
+
 import java.util.HashMap;
 import java.util.Stack;
 
