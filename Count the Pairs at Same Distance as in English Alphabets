@@ -1,0 +1,21 @@
+//Count the Pairs at Same Distance as in English Alphabets
+
+public class Main4 {
+
+    public static void Solve(String str){
+
+        int result = 0;
+        for(int i = 0;i<str.length();i++){
+            for(int j = 1;(i+j)<str.length() && j<=26;j++){
+                if(Math.abs(str.charAt(i+j)-str.charAt(i))==j){
+                    result++;
+                }
+            }
+        }
+        System.out.print(result);
+    }
+    public static void main(String [] args){
+        String str = "geeksforgeeks";
+        Solve(str);
+    }
+}
