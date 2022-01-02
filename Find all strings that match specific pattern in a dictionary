@@ -1,0 +1,40 @@
+//Pairs of Positive Negative values in an array
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
+public class Main4 {
+
+    public static String encode(String str){
+        int i = 0;
+        String result = "";
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(int j = 0;j<str.length();j++){
+            char c = str.charAt(j);
+            if(!map.containsKey(c)){
+                map.put(c,i++);
+            }
+
+            result+=map.get(c);
+        }
+        return result;
+    }
+    public static ArrayList<String> Solve(String arr[] , String pattern){
+        ArrayList<String> a = new ArrayList<>();
+        String patternEncode = encode(pattern);
+        for(int i = 0;i< arr.length;i++){
+            String temp = encode(arr[i]);
+            if(patternEncode.equals(temp)){
+                a.add(arr[i]);
+            }
+        }
+
+        return a;
+    }
+    public static void main(String[] args){
+        String arr[] = {"abb", "abc", "xyz", "xyy"};
+        String pattern = "foo";
+        System.out.print(Solve(arr,pattern));
+    }
+}
