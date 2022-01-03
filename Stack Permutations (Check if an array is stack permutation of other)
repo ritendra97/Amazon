@@ -1,0 +1,50 @@
+//Stack Permutations (Check if an array is stack permutation of other)
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+public class Main4 {
+
+    public static boolean Solve(int arr1[], int arr2[]){
+        Queue<Integer> input = new LinkedList<>();
+        Queue<Integer> output = new LinkedList<>();
+
+        for(int i = 0;i< arr1.length;i++){
+            input.add(arr1[i]);
+        }
+
+        for(int i = 0;i< arr2.length;i++){
+            output.add(arr2[i]);
+        }
+
+        Stack<Integer> st = new Stack<>();
+        while (!input.isEmpty()){
+            int ele1 = input.poll();
+
+            if(ele1== output.peek()){
+                output.poll();
+                while(!st.isEmpty()){
+                    if(st.peek()== output.peek()){
+                        st.pop();
+                        output.poll();
+                    }else{
+                        break;
+                    }
+                }
+            }else{
+                st.push(ele1);
+            }
+        }
+
+        return ( input.isEmpty() && st.isEmpty() ) ;
+    }
+
+    public static void main(String[] args){
+        int arr1[] = {1,2,3};
+        int arr2[] = {2,1,3};
+
+        System.out.print(Solve(arr1,arr2));
+
+    }
+}
