@@ -1,0 +1,97 @@
+//Rearrange array such that even positioned are greater than odd
+
+import java.util.Arrays;
+
+// Expected Time Complexity O(nlogn)
+// Space complexity = O(n)
+
+
+public class Graph {
+
+	public static void Solve(int arr[]) {
+		int n = arr.length;
+		int ans[] = new int[n];
+		Arrays.sort(arr);
+		int j = 0;
+		int l = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] < 0)
+				continue;
+			j = l;
+			for (int k = i; j < arr.length && k < arr.length; j += 2) {
+				ans[j] = arr[k];
+				arr[k] = -1 * arr[k];
+				k++;
+			}
+			l++;
+		}
+		Arrays.stream(ans).forEach(System.out::println);
+	}
+
+	public static void main(String[] args) {
+		int A[] = {  1, 3, 2, 2, 7,2,7,8,9,1,3 };
+		Solve(A);
+	}
+}
+
+
+/***********************************************************************************************/
+
+import java.util.Arrays;
+
+public class Graph {
+
+	public static void Solve(int arr[]) {
+		int n = arr.length;
+		int ans[] = new int[n];
+		Arrays.sort(arr);
+		int p = 0;
+		int q = n-1;
+		
+		for (int i = 0; i < arr.length; i++) {
+			
+			if( (i+1)%2==0 ){
+				ans[i] = arr[q--];
+			}else {
+				ans[i] = arr[p++];
+			}
+		}
+		Arrays.stream(ans).forEach(System.out::println);
+	}
+
+	public static void main(String[] args) {
+		int A[] = {  1, 3, 2, 2, 7,2,7,8,9,1,3 };
+		Solve(A);
+	}
+}
+
+
+/*********************************************************************************************/
+
+import java.util.Arrays;
+public class Main4 {
+    public static void Solve(int arr[]){
+        int n = arr.length;
+        for(int i = 1;i< arr.length;i++){
+
+            if(i%2==0){
+                if(arr[i]>arr[i-1]){
+                    int temp = arr[i];
+                    arr[i] = arr[i-1];
+                    arr[i-1] = temp;
+                }
+            }else{
+                if(arr[i]<arr[i-1]){
+                    int temp = arr[i];
+                    arr[i] = arr[i-1];
+                    arr[i-1] = temp;
+                }
+            }
+        }
+        Arrays.stream(arr).forEach(System.out::println);
+    }
+    public static void main(String[] args){
+        int  A[] = {1, 4, 5, 2, 7};
+        Solve(A);
+    }
+}
