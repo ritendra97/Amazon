@@ -1,0 +1,38 @@
+//Maximum consecutive numbers present in an array
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+
+public class Main4 {
+
+    public static void Solve(@NotNull int arr[]){
+
+        HashMap<Integer,Integer> map = new HashMap<>();
+
+        for(int i=0;i< arr.length;i++) {
+
+            if (map.containsKey(arr[i] - 1)) {
+                map.put(arr[i], map.get(arr[i] - 1) + 1);
+            } else if (map.containsKey(arr[i] + 1)) {
+                map.put(arr[i], map.get(arr[i] + 1) + 1);
+            } else {
+                map.put(arr[i], 1);
+            }
+        }
+
+        int max = 0;
+        for(Integer a:map.keySet()){
+            if(max<map.get(a)){
+                max = map.get(a);
+            }
+        }
+
+        System.out.print(max);
+    }
+
+    public static void main(String[] args){
+        int arr[] = {1, 94, 93, 1000, 5, 92, 78};
+        Solve(arr);
+    }
+}
