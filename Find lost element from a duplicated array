@@ -1,0 +1,46 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Main4 {
+
+    public static int BinarySearch(int arr1[], int arr2[], int n) {
+
+        if(n==1){
+            return arr1[0];
+        }
+
+        if(arr1[0]!=arr2[0]) return arr1[0];
+
+        int l = 0;
+        int h = n-1;
+
+        while(l<=h){
+            int mid = l+(h-l)/2;
+            if(arr1[mid]==arr2[mid]){
+                l=mid;
+            }else{
+                h=mid;
+            }
+            if(l==h-1){
+                break;
+            }
+        }
+
+        return arr1[h];
+    }
+
+    public static int find_MissElement(int arr1[], int arr2[]){
+        int n = arr1.length;
+        int m = arr2.length;
+
+        int ans = BinarySearch(arr1, arr2,n);
+        return ans;
+    }
+
+    public static void main(String[] args) {
+
+        int arr1[] = { 1,6,7,3,2 };
+        int arr2[] = { 1,6,7,2 };
+        System.out.println( find_MissElement(arr1, arr2) );
+    }
+}
