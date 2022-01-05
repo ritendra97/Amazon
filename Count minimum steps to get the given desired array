@@ -1,0 +1,45 @@
+//Count minimum steps to get the given desired array
+
+import java.util.Arrays;
+
+public class Main4 {
+
+    public static int Solve(int target[]){
+
+        int steps = 0;
+        int n = target.length;
+
+        while(true){
+
+            int zeros=0;
+            int i = 0;
+            for(i=0;i<n;i++){
+                if(target[i]%2==1) break;
+                else if(target[i]==0) zeros++;
+            }
+
+            if(zeros==n) return steps;
+
+            if(i==n){
+                for(int j = 0;j< target.length;j++){
+                    target[j] = target[j]/2;
+                }
+                steps++;
+            }
+
+            for (int j=i; j<n; j++)
+            {
+                if (target[j] %2 == 1)
+                {
+                    target[j]--;
+                    steps++;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args){
+        int target[] = {16, 16, 16};
+        System.out.println(Solve(target));
+    }
+}
