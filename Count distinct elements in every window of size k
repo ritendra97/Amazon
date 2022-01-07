@@ -1,0 +1,33 @@
+//Count distinct elements in every window of size k
+import java.util.HashMap;
+
+public class Graph {
+
+	public static void Solve(int arr[], int k) {
+
+		HashMap<Integer, Integer> hs = new HashMap<>();
+		for (int i = 0; i < k; i++) {
+			hs.put(arr[i], hs.getOrDefault(arr[i], 0)+1);
+		}
+
+		for (int i = k; i < arr.length; i++) {
+			System.out.println(hs.size());
+			int ele = arr[i - k];
+			if (hs.containsKey(ele)) {
+				if(hs.get(ele)>1) {
+					hs.put(ele, hs.get(ele)-1);
+				}else {
+					hs.remove(ele);
+				}
+			}
+			hs.put(arr[i], hs.getOrDefault(arr[i], 0)+1);
+		}
+		System.out.println(hs.size());
+	}
+
+	public static void main(String[] args) {
+		int arr[] = { 1, 2, 4, 4 };
+		int k = 2;
+		Solve(arr, k);
+	}
+}
