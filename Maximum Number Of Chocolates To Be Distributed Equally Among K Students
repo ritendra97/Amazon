@@ -1,0 +1,30 @@
+import java.util.HashSet;
+
+public class Graph {
+
+	public static void Solve(int arr[], int k) {
+
+		HashSet<Integer> hs = new HashSet<>();
+		int sum = 0;
+		int max = 0;
+		hs.add(0);
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i];
+			if (hs.contains(sum % k)) {
+				int ele = sum - sum % k;
+				if (max < ele) {
+					max=ele;
+				}
+			} else {
+				hs.add(sum);
+			}
+		}
+		System.out.println(max/k);
+	}
+
+	public static void main(String[] args) {
+		int arr[] = { 1, 5, 3, 6, 10, 1 };
+		int k = 3;
+		Solve(arr, k);
+	}
+}
