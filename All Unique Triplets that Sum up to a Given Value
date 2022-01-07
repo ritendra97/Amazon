@@ -1,0 +1,60 @@
+public class Main4 {
+
+    public static void Solve(int arr[], int sum){
+        for(int i = 0;i<arr.length;i++){
+            for(int j = i+1;j< arr.length;j++){
+                for(int k=j+1;k<arr.length;k++){
+                    if(arr[i]+arr[j]+arr[k]==sum){
+                        System.out.println(arr[i]+" "+arr[j]+" "+arr[k]);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args){
+        int arr[] = {3,5,7,5,6,1};
+        Solve(arr,16);
+    }
+}
+
+//All Unique Triplets that Sum up to a Given Value
+
+import java.util.Arrays;
+public class TripletsWithSum
+{
+    public static boolean getTripletOfSum(int arr[], int sum)
+    {
+        Arrays.sort(arr);
+        boolean isFound=false;
+        for (int i = 0; i < arr.length - 2; i++)
+        {
+            int j = i + 1;
+            int k = arr.length - 1;
+            while (j < k)
+            {
+                if (arr[i] + arr[j] + arr[k] == sum)
+                {
+                    System.out.println("["+arr[i] + " " + arr[j] +" " +arr[k]+"]");
+                    j++;
+                    k--;
+                    isFound=true;
+                }
+                else if (arr[i] + arr[j] + arr[k] < sum)
+                    j++;
+                else
+                    k--;
+            }
+        }
+        return isFound;
+    }
+    public static void main(String[] args)
+    {
+        int arr[] = {3,5,7,5,6,1};
+        int sum = 16;
+        if (!getTripletOfSum(arr, sum))
+        {
+            System.out.println("There are no triplets that can be formed with the given number");
+        }
+    }
+}
