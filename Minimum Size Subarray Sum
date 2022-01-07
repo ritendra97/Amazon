@@ -1,0 +1,57 @@
+//Minimum Size Subarray Sum
+//All Unique Triplets that Sum up to a Given Value
+
+public class Main4 {
+
+    public static void Solve(int arr[], int sum){
+
+        int i = -1;
+        int j = 0;
+        int min = Integer.MAX_VALUE;
+        int exp_sum = 0;
+
+        while (true){
+            boolean f1 = false;
+            boolean f2 = false;
+
+            while(i<arr.length-1){
+                f1=true;
+                i++;
+                if(arr[i]==sum) min = 1;
+                exp_sum+=arr[i];
+                if(exp_sum>=sum){
+                    if(min>(i-j+1) ){
+                        min=(i-j+1);
+                    }
+                    break;
+                }
+            }
+            while (j<i){
+                f2=true;
+                if(arr[j]==sum) min = 1;
+                exp_sum-=arr[j];
+                if(exp_sum>=sum){
+                    if(min>(i-j+1) ){
+                        min=(i-j+1);
+                    }
+                }else{
+                    break;
+                }
+                j++;
+            }
+
+            if(f1==false && f2==false){
+                break;
+            }
+        }
+
+        System.out.println(min);
+    }
+
+    public static void main(String [] args){
+        int arr[] = {2, 3, 1, 2, 4 , 3};
+        int sum = 7;
+
+        Solve(arr,sum);
+    }
+}
