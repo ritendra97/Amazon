@@ -1,0 +1,23 @@
+//Maximum Array from Two given Arrays Keeping Order Same
+
+public class Main4 {
+    
+    public static void NumArray(int arr[]){
+        int dp[] = new int[arr.length+1];
+        dp[0] = 0;
+        for(int i = 1;i< dp.length;i++){
+            dp[i] = dp[i-1]+arr[i-1];
+        }
+    }
+
+    public static int SumRange(int i, int j, int dp[]){
+        return dp[j+1]-dp[i];
+    }
+
+    public static void Solve(int arr[] , int queries[][]){
+        
+    }
+    public static void main(String [] args){
+        int arr[] = {5,5,10,20};
+    }
+}
