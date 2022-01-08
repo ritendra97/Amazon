@@ -1,0 +1,52 @@
+
+public class Main4 {
+
+    public static boolean Solve(int arr[]){
+        int n = arr.length;
+        boolean dp[] = new boolean[n];
+        dp[arr.length-1] = true;
+
+        for(int i = arr.length-2;i>=0;i--){
+            boolean f = false;
+            for(int j = 1;j<=arr[i] && i+j< dp.length;j++){
+
+                if( (dp[i+j]==true)){
+                    f=true;
+                }
+            }
+
+            dp[i] = f;
+        }
+        return dp[0];
+    }
+
+    public static void main(String[] args){
+        int arr[]={3,2,1,0,4};
+        System.out.println(Solve(arr));
+    }
+}
+
+
+public class Main4 {
+
+    public static boolean canJump(int[] nums) {
+        int next_move=0;
+        int curr_move=0;
+        if(nums.length==0 || nums.length==1)
+            return true;
+        for(int i=0;i<nums.length-1;i++){
+
+            next_move = Math.max(next_move,i+nums[i]);
+
+            if(i==curr_move){
+                curr_move=next_move;
+            }
+        }
+        return curr_move>=nums.length-1;
+    }
+
+    public static void main(String[] args){
+        int arr[]={3,2,1,0,4};
+        System.out.println(canJump(arr));
+    }
+}
