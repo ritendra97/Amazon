@@ -1,0 +1,99 @@
+import java.util.Arrays;
+
+public class Main4 {
+
+    public static void Solve(int arr[]){
+
+        int n=arr.length;
+        int over_all = Integer.MIN_VALUE;
+
+        for(int i = 0;i<n-1;i++){
+            int max = max_suba_Array(arr);
+            if(max>over_all){
+                over_all = max;
+            }
+            int temp = arr[0];
+            for(int j = 1;j< arr.length;j++){
+                arr[j-1] = arr[j];
+            }
+            arr[arr.length-1] = temp;
+        }
+
+        int max = max_suba_Array(arr);
+        if(max>over_all){
+            over_all = max;
+        }
+        System.out.print(over_all);
+    }
+
+    public static int max_suba_Array(int arr[]){
+        int max = arr[0];
+        int curr_sum = arr[0];
+
+        for(int i = 1;i<arr.length;i++){
+            curr_sum+=arr[i];
+            if(curr_sum<0){
+                curr_sum = arr[i];
+            }
+
+            max = Math.max(max,curr_sum);
+        }
+
+        return max;
+    }
+    public static void main(String[] args){
+        int arr[] = {13, -17, 11, 9, -4, 12, -1};
+        Solve(arr);
+    }
+}
+
+/Maximum circular subarray sum
+Note that the above algorithm doesn’t work if all numbers are negative e.g., {-1, -2, -3}. 
+It returns 0 in this case. This case can be handled by adding a pre-check to see if all the numbers are negative before running the above algorithm.
+import java.util.*;
+public class Solution 
+{
+	public static int maximumArray(int arr[])
+	{
+		int curr_sum = arr[0];
+		int overall_sum = arr[0];
+		for(int i=1;i<arr.length;i++)
+		{
+			if(curr_sum<0)
+			{
+				curr_sum = arr[i];
+			}
+			else 
+			{
+				curr_sum+=arr[i];
+			}
+			overall_sum = Math.max(overall_sum,curr_sum); 
+		}
+		return overall_sum;
+	}
+	public static int maximumcirculerSubarray(int arr[])
+	{
+		if(arr.length==0)
+			return 0;
+		int x = maximumArray(arr);
+		int sum = 0;
+		for(int i=0;i<arr.length;i++)
+		{
+			sum+=arr[i];
+			arr[i]*=-1;
+		}
+		int z = maximumArray(arr);
+		
+		if(sum+z==0)
+			return x;
+		return Math.max(x, sum+z);
+	}
+	public static void main(String[] args) 
+	{
+		int arr[] = {-1, 40, -14, 7, 6, 5, -4, -1};
+		
+		System.out.println(maximumcirculerSubarray(arr));
+	}
+}
+
+
