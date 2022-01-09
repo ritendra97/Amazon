@@ -1,0 +1,66 @@
+public int findJudge(int N, int[][] trust) {
+        if(N ==1 && trust.length == 0){
+            return 1;
+        }
+        if(N >1 && trust.length == 0){
+            return -1;
+        }
+        HashMap<Integer,Integer> inDegree = new HashMap<>();
+        HashMap<Integer,Integer> outDegree = new HashMap<>();
+        int probableJudge = -1;
+        int probableJudgeInDegree = -1;
+        
+        for(int i=0;i<trust.length;i++){
+		   //update indegree 
+            if(inDegree.containsKey(trust[i][1])){
+                inDegree.put(trust[i][1],inDegree.get(trust[i][1])+1);
+            }else{
+                inDegree.put(trust[i][1],1);
+            }
+			//Keeping track of the node which has highest indegree till now
+            if(inDegree.get(trust[i][1])>probableJudgeInDegree){
+                probableJudgeInDegree = inDegree.get(trust[i][1]);
+                probableJudge = trust[i][1];
+            }
+			 //update outdegree 
+            if(outDegree.containsKey(trust[i][0])){
+                outDegree.put(trust[i][0],outDegree.get(trust[i][0])+1);
+            }else{
+                outDegree.put(trust[i][0],0);
+            }
+        }
+        if(inDegree.get(probableJudge) == N-1 && !outDegree.containsKey(probableJudge)){
+            return probableJudge;
+        }
+        
+        return -1;
+    }
+    
+    
+    import java.util.*;
+import java.lang.*;
+class Solution
+{  
+    public static void main(String args[])
+    {
+        int n = 3;
+        int[][]trust = {{1,3},{2,3}};
+        System.out.println(findJudge(n,trust));
+    }
+    public static int findJudge(int n, int[][] trust) 
+    {
+        int[]netTrustGains=new int[n+1];
+        for(int[]i:trust){
+            netTrustGains[i[0]]--;
+            netTrustGains[i[1]]++;
+            
+        }
+        int judge=-1;
+        for(int i=1;i<=n;i++){
+            if(netTrustGains[i]==n-1){
+                judge=i;
+            }
+        }
+        return judge;
+    }
+}
