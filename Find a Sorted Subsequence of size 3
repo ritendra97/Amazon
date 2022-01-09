@@ -1,0 +1,47 @@
+//Find a Sorted Subsequence of size 3
+
+public class Main4 {
+
+    public static void Solve(int arr[]){
+
+        int n = arr.length;
+        int mina[] = new int[n];
+        int maxa[] = new int[n];
+        mina[0] = -1;
+        maxa[n-1] = -1;
+
+        int min=0;
+        int max=n-1;
+
+        for(int i = 1;i<arr.length;i++){
+            if(arr[i]<arr[min]){
+                mina[i]=-1;
+                min = i;
+            }else{
+                mina[i] = min;
+            }
+        }
+
+
+        for(int i = arr.length-1;i>=0;i--){
+            if(arr[i]>arr[max]){
+                maxa[i]=-1;
+                max = i;
+            }else{
+                maxa[i] = max;
+            }
+        }
+
+        for(int i = 0;i<arr.length;i++){
+            if(maxa[i]!=-1 && mina[i]!=-1){
+                System.out.println(arr[mina[i]]+" "+arr[i]+" "+arr[maxa[i]]);
+                return;
+            }
+        }
+    }
+
+    public static void main(String[] args){
+        int arr[] = {22, 21, 19, 15, 16, 12, 35};
+        Solve(arr);
+    }
+}
