@@ -1,0 +1,45 @@
+//Maximum sum of nodes in Binary tree such that no two are adjacent
+import java.util.ArrayList;
+import java.util.Stack;
+
+class Node{
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data){
+        this.data=data;
+    }
+}
+public class Main {
+
+    public static int convertMinHeap(Node root){
+        if(root==null) return 0;
+
+        int inc = root.data;
+        if(root.left!=null){
+            inc+=convertMinHeap(root.left.left);
+            inc+=convertMinHeap(root.left.right);
+        }
+
+        if(root.right!=null){
+            inc+=convertMinHeap(root.right.left);
+            inc+=convertMinHeap(root.right.right);
+        }
+
+        int exc = convertMinHeap(root.left)+convertMinHeap(root.right);
+
+        return Math.max(inc,exc);
+    }
+
+    public static void main(String[] args){
+
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.right.left = new Node(4);
+        root.right.right = new Node(5);
+        root.left.left = new Node(1);
+        System.out.println(convertMinHeap(root));
+    }
+}
