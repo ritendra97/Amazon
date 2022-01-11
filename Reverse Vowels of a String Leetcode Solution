@@ -1,0 +1,43 @@
+import java.util.*;
+class Rextester
+{ 
+    public static String reverseVowels(String s) {
+       char[] arr= s.toCharArray();
+        
+        Set<Character> vowels=new HashSet<Character>();
+        vowels.add('a');
+        vowels.add('e');
+        vowels.add('i');
+        vowels.add('o');
+        vowels.add('u');
+        vowels.add('A');
+        vowels.add('E');
+        vowels.add('I');
+        vowels.add('O');
+        vowels.add('U');
+        
+       int start=0,end=arr.length-1;
+        while(start<end)
+        {
+            while(start<end && !vowels.contains(arr[start])) start++;
+            
+            while(start<end && !vowels.contains(arr[end])) end--;
+            
+            char temp=arr[start];
+            arr[start]=arr[end];
+            arr[end]=temp;
+            
+            start++;
+            end--;
+        }
+        
+        return new String(arr);
+    }
+    
+    public static void main(String args[])
+    {
+        String s="leetcode";
+        System.out.println(reverseVowels(s));
+        
+    }
+}
