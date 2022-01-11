@@ -1,0 +1,36 @@
+import java.util.*;
+class relative_sort
+{
+    public static void main(String args[])
+    {
+        int[] a = {4 , 5 , 6 , 4 , 5 , 6 , 7 , 1 , 12 , 99};
+        int[] b = {5 , 6 , 12};
+        a = relativeSortArray(a , b);
+        for(int i = 0 ; i < a.length ; i++)
+            System.out.print(a[i] + " ");
+    }
+    static int[] relativeSortArray(int[] Array1 , int[] Array2)
+    {
+        int[] frequency = new int[1010];
+        for(int i = 0 ; i < 1010 ; i++)
+            frequency[i] = 0;
+        for(int i = 0 ; i < Array1.length ; i++)
+            frequency[Array1[i]]++;
+        int idx = 0;
+        for(int i = 0 ; i < Array2.length ; i++)
+        {
+            while(frequency[Array2[i]] > 0)
+            {
+                Array1[idx++] = Array2[i];
+                frequency[Array2[i]]--;
+            }
+        }
+        for(int i = 0 ; i < 1010 ; i++)
+            while(frequency[i] > 0)
+            {
+                Array1[idx++] = i;
+                frequency[i]--;
+            }
+        return Array1;
+    }
+}
