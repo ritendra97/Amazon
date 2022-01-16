@@ -1,0 +1,31 @@
+import java.util.Arrays;
+
+public class Main4 {
+
+    public static void Solution(int arr[], int k){
+
+        int j = 0;
+        int i = 0;
+        int zero = 0;
+        int max = Integer.MIN_VALUE;
+        while (i< arr.length){
+            if(arr[i]==0) zero++;
+
+            while (zero>k && j<i){
+                 if(arr[j]==0) zero--;
+                 j++;
+            }
+            max = Math.max(max,(i-j+1));
+            i++;
+        }
+
+        System.out.println(max);
+    }
+
+    public static void main(String [] args){
+        int arr[] = {1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1};
+        int k = 2;
+        Solution(arr,k);
+        System.out.println();
+    }
+}
