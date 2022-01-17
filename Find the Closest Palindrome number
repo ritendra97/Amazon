@@ -1,0 +1,31 @@
+//Find the Closest Palindrome number
+
+public class Main4 {
+
+    public static String nearestPalindromic(long n) {
+
+        for (long i =1;;i++){
+            if(isPalindrome(n+i)){
+                return " "+(n+i);
+            }
+            if(isPalindrome(n-i)){
+                return " "+(n-i);
+            }
+        }
+    }
+
+    public static boolean isPalindrome(long x){
+        long t = x,rev=0;
+        while (t>0){
+            rev = 10*rev+t%10;
+            t/=10;
+        }
+
+        return rev==x;
+    }
+    public static void main(String [] args){
+        long n = 123;
+        System.out.println(nearestPalindromic(n));
+    }
+}
+
