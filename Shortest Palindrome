@@ -1,0 +1,82 @@
+//Shortest Palindrome
+Time Complexity O(n*n)
+Space Complexity O(1)
+
+package Main;
+
+public class MainClass {
+
+	public static int noOfCharacter(String str){
+        int j=str.length()-1;
+        int i=0;
+        int count = 0;
+        while (j>0){
+            if(!isPalindrome(str,i,j)){
+                count++;
+                j--;
+            }
+        }
+        return count;
+    }
+
+    public static boolean isPalindrome(String str, int i, int j){
+
+        while (i<=j){
+            if(str.charAt(i)!=str.charAt(j)) return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    public static void main(String[] args){
+        String str = "JAVA";
+        System.out.println(noOfCharacter(str));
+    }
+}
+
+package Main;
+
+public class MainClass {
+
+	public static int[] computeLPSArray(String s){
+        int l = s.length();
+        int lps[] = new int[l];
+        int i = 1, len = 0;
+        lps[0] = 0;
+
+        while(i < l){
+            if(s.charAt(i) == s.charAt(len)){
+                len++;
+                lps[i] = len;
+                i++;
+            }
+            else{
+                if(len != 0){
+                    len = lps[len - 1];
+                }
+                else{
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        return lps;
+    }
+
+    static int minChar(String s){
+        StringBuilder S = new StringBuilder();
+        S.append(s);
+
+        String rev = S.reverse().toString();
+        S.reverse().append("$").append(rev);
+
+        int lps[] = computeLPSArray(S.toString());
+        return s.length() - lps[S.length() - 1];
+    }
+    public static void main(String[] args){
+        String s = "abc";
+        System.out.println(minChar(s));
+    }
+}
+
