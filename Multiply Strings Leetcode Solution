@@ -1,0 +1,48 @@
+
+public class Main4{
+
+    public static void multiply(String str1, String str2){
+
+        int l1 = str1.length();
+        int l2 = str2.length();
+
+        int ans[] = new int[l1+l2];
+        int pf = 0;
+
+        for(int i = l2-1;i>=0;i--){
+            int ival = str2.charAt(i)-'0';
+            int k = ans.length-1-pf;
+            int carry = 0;
+            int j = l1-1;
+
+            while (j>=0 || carry!=0){
+                int jval = j>=0?str1.charAt(j)-'0':0;
+                j--;
+                int prod = ival*jval+carry+ans[k];
+                ans[k] = prod%10;
+                carry = prod/10;
+                k--;
+            }
+            pf++;
+        }
+
+        String res = "";
+        boolean f = false;
+
+        for(int val:ans){
+            if(val==0 && f==false){
+                continue;
+            }else{
+                res+=val;
+                f=true;
+            }
+        }
+
+        System.out.println(res);
+    }
+    public static void main(String[] args){
+        String str1 = "654154154151454545415415454";
+        String str2 = "63516561563156316545145146514654";
+        multiply(str1,str2);
+    }
+}
