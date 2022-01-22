@@ -1,0 +1,40 @@
+//Longest Common Subsequence with Permutations
+
+public class Main4{
+
+    public static void Solve(String str1, String str2){
+
+        int n1 = str1.length();
+        int n2 = str2.length();
+
+        int count1[] = new int[26];
+        int count2[] = new int[26];
+
+        for (int i=0; i<str1.length(); i++)
+        {
+            char c = str1.charAt(i);
+            count1[c-'a']++;
+        }
+        for (int i=0; i<str2.length(); i++)
+        {
+            char c = str2.charAt(i);
+            count2[c-'a']++;
+        }
+
+        String ans="";
+        for(int i=0; i<26; i++)
+        {
+            for (int j=1;j<=Math.min(count1[i],count2[i]); j++)
+            {
+                ans+=(char)('a' + i);
+            }
+        }
+        System.out.println(ans);
+    }
+
+    public static void main(String[] args) {
+        String str1 = "hello";
+        String str2 = "hole";
+        Solve(str1,str2);
+    }
+}
