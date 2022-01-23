@@ -1,0 +1,137 @@
+//Longest Common Prefix using Character by Character Matching
+
+public class Main4{
+
+    static int findMinLength(String arr[], int n)
+    {
+        int min = arr[0].length();
+
+        for (int i = 1; i < n; i++)
+        {
+            if (arr[i].length() < min)
+            {
+                min = arr[i].length();
+            }
+        }
+
+        return (min);
+    }
+
+    public static String commonPrefix(String arr[], int n){
+
+        int minlen = findMinLength(arr, n);
+        String result = "";
+        char current;
+
+        for(int i = 0;i<minlen;i++){
+
+            current = arr[0].charAt(i);
+            for(int j = 1;j<n;j++){
+                if (arr[j].charAt(i) != current)
+                {
+                    return result;
+                }
+            }
+            result += (current);
+        }
+        return result;
+    }
+
+    public static void main(String [] args){
+
+        String arr[] = {"geeksforgeeks", "geeks", "geek", "geezer"};
+        int n = arr.length;
+        String ans = commonPrefix(arr, n);
+
+        if (ans.length() > 0) {
+            System.out.println("The longest common prefix is "
+                    + ans);
+        } else {
+            System.out.println("There is no common prefix");
+        }
+    }
+}
+
+//Longest Common Prefix using Character by Character Matching
+
+class TrieNode
+{
+    boolean isEnd;
+    TrieNode[] children = new TrieNode[26];
+    TrieNode()
+    {
+        isEnd = false;
+        for (int i = 0;i<26;i++)
+        {
+            children[i] = null;
+        }
+    }
+}
+public class Longest_common_prefix {
+
+    static TrieNode root;
+    static int indexs;
+    static final int ALPHABET_SIZE = 26;
+    public static void insert(String word){
+        TrieNode node = root;
+        for(int i = 0;i<word.length();i++){
+            int index = word.charAt(i)-'0';
+            if(node.children[index]==null){
+                node.children[index] = new TrieNode();
+            }
+            node = node.children[index];
+        }
+        node.isEnd=true;
+    }
+
+    static int countChildren(TrieNode node)
+    {
+        int count = 0;
+        for (int i=0; i<ALPHABET_SIZE; i++)
+        {
+            if (node.children[i] != null)
+            {
+                count++;
+                indexs = i;
+            }
+        }
+        return (count);
+    }
+    static void constructTrie(String arr[], int n)
+    {
+        for (int i = 0; i < n; i++)
+            insert (arr[i]);
+        return;
+    }
+    static String walkTrie()
+    {
+        TrieNode pCrawl = root;
+        indexs = 0;
+        String prefix = "";
+
+        while (countChildren(pCrawl) == 1 && pCrawl.isEnd == false) {
+            pCrawl = pCrawl.children[indexs];
+            prefix += (char)('a' + indexs);
+        }
+        return prefix;
+    }
+
+    static String commonPrefix(String arr[], int n)
+    {
+        root = new TrieNode();
+        constructTrie(arr, n);
+        return walkTrie();
+    }
+
+    public static void main(String[] args){
+        String arr[] = {"geeksforgeeks", "geeks","geek", "geezer"};
+        int n = arr.length;
+
+        String ans = commonPrefix(arr, n);
+
+        if (ans.length() != 0)
+            System.out.println("The longest common prefix is "+ans);
+        else
+            System.out.println("There is no common prefix");
+    }
+}
