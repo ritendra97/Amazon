@@ -1,0 +1,44 @@
+import java.util.Scanner;
+class sum {
+    
+    static void strings_form(int k, char s[], int n)
+    {
+        if(n==k)
+        {
+            s[n]='\0';
+            System.out.print(s);
+            System.out.print(" ");
+            return;
+        }
+        if(s[n-1]=='1')
+        {
+            s[n]='0';
+            strings_form(k,s,n+1);
+        }
+        if(s[n-1]=='0')
+        {
+            s[n]='0';
+            strings_form(k,s,n+1);
+            s[n]='1';
+            strings_form(k,s,n+1);
+        }
+    }
+    static void print_strings(int n) 
+    {
+        if(n<=0)
+        {
+            return;
+        }
+        char s[] = new char[n+1];
+        s[0]= '0';
+        strings_form(n,s,1);
+        s[0]= '1';
+        strings_form(n,s,1);
+    }
+    public static void main(String[] args) 
+    {
+        Scanner sr= new Scanner(System.in);
+        int n = sr.nextInt();
+        print_strings(n);
+    } 
+}
