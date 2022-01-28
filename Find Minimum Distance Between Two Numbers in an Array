@@ -1,0 +1,31 @@
+import javax.print.attribute.standard.MediaSize;
+
+public class Main4 {
+
+    public static int Solution(int arr[],int n , int first, int second){
+        int l = 0;
+        int r = 0;
+
+        int min_distance = Integer.MAX_VALUE;
+
+        while (l<n && r<n){
+            if(arr[l]==first){
+                while (r<n && arr[r]!=second) r++;
+                if(r<n && arr[r]==second) min_distance = Math.min(min_distance, Math.abs(l-r));
+                l=r;
+            }else if(arr[l]==second){
+                while (r<n && arr[r]!=first) r++;
+                if(r<n && arr[r]==first) min_distance = Math.min(min_distance, Math.abs(l-r));
+                l=r;
+            }else {
+                l++;
+            }
+        }
+
+        return min_distance;
+    }
+    public static void main(String [] args){
+        int arr[] = {3, 5, 4, 2, 6, 5, 6, 6, 5, 4, 8, 3};
+        System.out.println(Solution(arr,arr.length-1,3,5));
+    }
+}
