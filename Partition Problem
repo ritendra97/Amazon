@@ -1,0 +1,39 @@
+import java.util.Arrays;
+
+public class Main4 {
+
+    public static boolean Helper(int arr[], int index, int sum){
+
+        if(sum==0) return true;
+
+        if(index>=arr.length){
+            if(sum==0) return true;
+            else return false;
+        }
+
+        if(arr[index]>=sum){
+            return Helper(arr,index+1,sum);
+        }
+
+        return Helper(arr,index+1,sum) || Helper(arr,index+1,sum-arr[index]);
+    }
+
+    public static boolean Solution(int arr[]){
+
+        int sum=0;
+
+        for (int i = 0;i<arr.length;i++){
+            sum+=arr[i];
+        }
+        if(sum%2!=0) return false;
+        else sum=sum%2;
+
+        return Helper(arr,0,sum);
+    }
+
+    public static void main(String[] args){
+        int arr[] = {2,4,11,9,8,3};
+        int n = 6;
+        System.out.println(Solution(arr));
+    }
+}
