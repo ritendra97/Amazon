@@ -1,6 +1,41 @@
 //Longest Subarray Having Count Of 1s One More Than Count Of 0s
 // Check if an array is stack sortable
 
+public class Main2 {
+
+	public static int Solution(int arr[]) {
+		int max_length = 0;
+		for (int i = 0; i < arr.length; i++) {
+
+			int ones = 0;
+			int zeros = 0;
+			if (arr[i] == 0) {
+				zeros = 1;
+			} else {
+				ones = 1;
+			}
+			for (int j = i + 1; j< arr.length; j++) {
+				if (arr[j] == 0) {
+					zeros++;
+				} else {
+					ones++;
+				}
+				int length = j-i+1;
+				if (ones > zeros && length>max_length) {
+					max_length = j - i + 1;
+				}
+			}
+		}
+		return max_length;
+	}
+
+	public static void main(String[] args) {
+		int arr[] = { 1, 0, 1, 1, 0, 0, 0 };
+		System.out.println(Solution(arr));
+	}
+}
+
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
