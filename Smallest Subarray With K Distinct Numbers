@@ -1,0 +1,39 @@
+import java.util.HashMap;
+
+public class Main2 {
+
+	public static void Solution(int arr[], int k) {
+
+		HashMap<Integer, Integer> map = new HashMap<>();
+		int right = 0;
+		int left = 0;
+		int min_length = Integer.MAX_VALUE;
+		int n = arr.length;
+			
+		while (left < arr.length && right<arr.length) {
+			while (right < n && map.size() < k) {
+				map.put(arr[right], map.getOrDefault(arr[right], 0) + 1);
+				right++;
+			}
+
+			while (left < right && map.size() >= k) {
+				if (right - left < min_length) {
+					min_length = right - left;
+				}
+				if (map.get(arr[left]) > 1) {
+					map.put(arr[left], map.get(arr[left]) - 1);
+				} else {
+					map.remove(arr[left]);
+				}
+				left++;
+			}
+		}
+		System.out.println(min_length);
+	}
+
+	public static void main(String[] args) {
+		int arr[] = { 1, 2, 2, 3 };
+		int k = 2;
+		Solution(arr, k);
+	}
+}
