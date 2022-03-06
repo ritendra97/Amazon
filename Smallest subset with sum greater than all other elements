@@ -1,0 +1,31 @@
+public class Main4 {
+
+    public static void Solution(int arr[]){
+
+        int i = 0;
+        int j = 0;
+        int sum = 0;
+        for(int k =0;k<arr.length;k++){
+            sum+=arr[k];
+        }
+
+        int pans = 0;
+        int count = Integer.MAX_VALUE;
+        while (i<arr.length){
+            pans+=arr[i];
+            while (pans>(sum-pans) && j<=i){
+                if(count>(i-j)+1){
+                    count = (i-j)+1;
+                }
+                pans-=arr[j++];
+            }
+            i++;
+        }
+        System.out.println(count);
+    }
+
+    public static void main(String[] args){
+        int arr[] = {2, 1, 2};
+        Solution(arr);
+    }
+}
