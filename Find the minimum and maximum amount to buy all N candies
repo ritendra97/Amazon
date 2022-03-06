@@ -1,0 +1,36 @@
+//Find the minimum and maximum amount to buy all N candies
+
+import java.util.Arrays;
+
+public class Main4 {
+
+    public static void Solution(int price[], int k){
+        Arrays.sort(price);
+
+        int i = 0;
+        int j = price.length-1;
+        int min = 0;
+
+        while (i<=j){
+            min+=price[i];
+            j = j-k;
+            i++;
+        }
+
+        i = price.length-1;
+        j=0;
+        int max = 0;
+
+        while(i>=j){
+            max+=price[i];
+            j=j+k;
+            i--;
+        }
+        System.out.println("Min: "+min+" Max: "+max);
+    }
+    public static void main(String[] args){
+        int price[] = {3, 2, 1, 4};
+        int k = 2;
+        Solution(price,k);
+    }
+}
