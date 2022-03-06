@@ -1,0 +1,48 @@
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+
+class wordFrequency{
+    String word;
+    int freq;
+
+    public wordFrequency(String word, int freq) {
+        this.word = word;
+        this.freq = freq;
+    }
+}
+public class Main4 {
+
+    public static void Solution(String[] arr){
+
+        Map<String, Integer> map = new HashMap<>();
+        for(int i = 0;i<arr.length;i++){
+            map.put(arr[i],map.getOrDefault(arr[i],0)+1 );
+        }
+
+        PriorityQueue<wordFrequency> pq  = new PriorityQueue<>(new Comparator<wordFrequency>() {
+            @Override
+            public int compare(wordFrequency o1, wordFrequency o2) {
+                if(o1.freq<o2.freq) return -1;
+                else if(o1.freq>o2.freq) return 1;
+                else{
+                    return o1.word.compareTo(o2.word);
+                }
+            }
+        });
+
+        for(Map.Entry<String , Integer> m: map.entrySet()){
+            pq.add(new wordFrequency(m.getKey(),m.getValue()));
+        }
+        while (!pq.isEmpty()) {
+
+            wordFrequency temp = pq.remove();
+            System.out.println("Word is: " + temp.word + " " + "&& Frequency is: " + temp.freq);
+        }
+    }
+    public static void main(String[] args){
+        String[] arr = {"Geeks", "for", "Geeks"};
+        Solution(arr);
+    }
+}
