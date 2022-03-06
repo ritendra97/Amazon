@@ -1,0 +1,37 @@
+//Maximum sum of absolute difference of any permutation
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Main4 {
+
+    public static void Solution(int arr[]){
+
+        int n = arr.length;
+        List<Integer> finalSequence = new ArrayList<>();
+        Arrays.sort(arr);
+
+        for(int i=0;i<n/2;i++){
+            finalSequence.add(arr[i]);
+            finalSequence.add(arr[n-i-1]);
+        }
+
+        if(n/2!=0){
+            finalSequence.add(arr[n/2]);
+        }
+
+        int max_sum = 0;
+        for(int i =0;i<n-1;i++){
+            max_sum+=Math.abs(finalSequence.get(i)-finalSequence.get(i+1));
+        }
+        max_sum+=Math.abs(finalSequence.get(0)-finalSequence.get(n-1));
+
+        System.out.println(max_sum);
+    }
+
+    public static void main(String[] args){
+        int arr[] = {1, 2, 4, 8};
+        Solution(arr);
+    }
+}
