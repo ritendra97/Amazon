@@ -1,0 +1,72 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+class pair{
+    int row;
+    int col;
+    int dis;
+
+    public pair(int row, int col, int dis) {
+        this.row = row;
+        this.col = col;
+        this.dis = dis;
+    }
+}
+public class Main4 {
+
+    public static boolean isSafe(int row, int col , int[][] grid, boolean[][] visited){
+        if(row<0 || col<0 || row>=grid.length || col>=grid.length || visited[row][col] || grid[row][col]==1) return false;
+        return true;
+    }
+
+    public static int Solution(int grid[][], int srcRow, int srcCol){
+
+        Queue<pair> q = new LinkedList<>();
+        q.add(new pair(srcRow,srcCol,0));
+        int min_distance = Integer.MAX_VALUE;
+        boolean visited[][ ] = new boolean[grid.length][grid.length];
+
+        while (!q.isEmpty()){
+
+            pair cell = q.remove();
+
+            if(cell.row==0 && cell.col ==0 || cell.row== grid[0].length-1 && cell.col == grid[0].length-1 || cell.row==0 && cell.col == grid[0].length-1 || cell.row==grid.length && cell.col ==0){
+                return cell.dis;
+            }
+
+            if(isSafe(cell.row+1,cell.col,grid,visited)){
+                q.add(new pair(cell.row+1,cell.col,cell.dis+1));
+                visited[cell.row+1][cell.col]=true;
+            }
+
+            if(isSafe(cell.row-1,cell.col,grid,visited)){
+                q.add(new pair(cell.row-1,cell.col,cell.dis+1));
+                visited[cell.row-1][cell.col]=true;
+            }
+
+            if(isSafe(cell.row,cell.col+1,grid,visited)){
+                q.add(new pair(cell.row,cell.col+1,cell.dis+1));
+                visited[cell.row][cell.col+1]=true;
+            }
+
+            if(isSafe(cell.row,cell.col-1,grid,visited)){
+                q.add(new pair(cell.row,cell.col-1,cell.dis+1));
+                visited[cell.row][cell.col-1]=true;
+            }
+        }
+
+        return min_distance;
+    }
+
+    public static void main(String[] args){
+
+        int grid[][] = { {1, 1, 1, 0, 0},
+                         {0, 0, 1, 0, 1},
+                         {0, 0, 1, 0, 1},
+                         {1, 0, 0, 0, 1},
+                         {1, 1, 0, 1, 0} };
+
+        System.out.println(Solution(grid,3,3));
+
+    }
+}
