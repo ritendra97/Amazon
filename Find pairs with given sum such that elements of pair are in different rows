@@ -1,0 +1,50 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class pair{
+    int first;
+    int second;
+
+    public pair(int first, int second) {
+        this.first = first;
+        this.second = second;
+    }
+}
+
+public class Main4 {
+
+    public static void Solution(int arr[][], int sum){
+
+        Map<Integer,pair> map = new HashMap<>();
+        for(int i = 0;i<arr.length;i++){
+            for(int j = 0;j< arr[0].length;j++){
+                map.put(arr[i][j],new pair(i,j));
+            }
+        }
+
+        for(int i = 0;i<arr.length;i++){
+            for(int j = 0;j< arr[0].length;j++){
+                int target = sum- arr[i][j];
+                if(map.containsKey(target)){
+                    int row = map.get(target).first;
+                    int col = map.get(target).second;
+
+                    if(i!=row && j!=col){
+                        System.out.println(arr[i][j]+" "+target);
+                    }
+                }
+            }
+        }
+
+    }
+
+    public static void main(String[] args){
+
+        int n = 4, sum = 15;
+        int matrix[][]= {{3, 4, 7, 2},
+                         {8, 9, 1, 10},
+                         {5, 4, 0, 4},
+                         {12, 0, 1, 13}};
+        Solution(matrix,sum);
+    }
+}
