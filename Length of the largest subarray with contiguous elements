@@ -1,0 +1,38 @@
+import java.util.HashSet;
+
+public class Main4 {
+
+    public static void Solution(int arr[]){
+
+        int l = arr.length;
+        int max_length = Integer.MIN_VALUE;
+
+        for(int i = 0;i<arr.length;i++){
+
+            HashSet<Integer> st = new HashSet<>();
+            st.add(arr[i]);
+
+            int max = arr[i];
+            int min = arr[i];
+
+            for(int j=i+1;j<arr.length;j++){
+
+                if(st.contains(arr[j])) break;
+
+                min = Math.min(min,arr[j]);
+                max = Math.max(max,arr[j]);
+
+                if(max-min==j-i+1){
+                    max_length = Math.max(max_length,j-i+1);
+                }
+            }
+        }
+
+        System.out.println(max_length);
+    }
+
+    public static void main(String [] args){
+        int arr[] = {10, 12, 13, 11, 8, 10};
+        Solution(arr);
+    }
+}
