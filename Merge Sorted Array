@@ -1,0 +1,33 @@
+class Solution {
+    public void merge(int[] arr1, int m, int[] arr2, int n) {
+        
+        int i = arr1.length-1;
+        int j = arr2.length-1;
+        int k = 0;
+
+        for (;k<arr1.length;k++) {
+            if (arr1[k] == 0) break;
+        }
+        
+        if(k>0) k--;
+        
+        while (i>=0 && j>=0 && k>=0){
+
+            if (arr2[j]>arr1[k]) {
+                arr1[i--] = arr2[j];
+                j--;
+            }else if(arr1[k]>arr2[j]){
+                arr1[i--] = arr1[k];
+                arr1[k] = arr2[j];
+                k--;
+            }else {
+                arr1[i--] = arr1[k];
+                arr1[i--] = arr2[j];
+                j--;
+                k--;
+            }
+        }
+        
+    
+    }
+}
