@@ -1,0 +1,30 @@
+class Solution {
+    
+    public boolean isIsomorphic(String s, String t) {
+        
+        int m = s.length();
+        int n = t.length();
+        
+        if(m!=n) return false;
+        
+        int CheckS[] = new int[256];
+        int CheckT[] = new int[256];
+         Arrays.fill(CheckS, -1);
+         Arrays.fill(CheckT, -1);
+        
+        for(int i = 0;i<s.length();i++)
+        {
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
+            
+            if(CheckS[c2]==-1 && CheckT[c1]==-1){
+                CheckS[c2] = c1;
+                CheckT[c1] = c2;
+            }else if(CheckS[c2]!= c1 && CheckT[c1]!= c2){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+}
