@@ -1,0 +1,26 @@
+public class Main2 {
+
+	public static void Solve(int arr[], int n) {
+
+		int first_small = Integer.MAX_VALUE;
+		int second_small = Integer.MAX_VALUE;
+
+		for (int i = 0; i < n; i++) {
+			if (arr[i] < first_small) {
+				second_small = first_small;
+				first_small = arr[i];
+			}else if(arr[i]<second_small && arr[i]>first_small) {
+				second_small = arr[i];
+			}
+		}
+
+		System.out.println(first_small);
+		System.out.println(second_small);
+	}
+
+	public static void main(String[] args) {
+		int arr[] = { 1, 5, 3, 2, 9 };
+		int n = arr.length;
+		Solve(arr, n);
+	}
+}
